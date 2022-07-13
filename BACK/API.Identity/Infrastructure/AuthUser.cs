@@ -7,9 +7,8 @@
         public string Password { get; set; }
         public DateTime LastConnection { get; set; } = DateTime.Now;
 
-        public AuthUser(Guid id, string userName, string password)
+        public AuthUser(string userName, string password)
         {
-            Id = id;
             UserName = userName;
             Password = password;
         }

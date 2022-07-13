@@ -33,4 +33,18 @@ public class AuthController : ControllerBase
 
         return Ok(user.Id);
     }
+
+    [HttpPost]
+    public async Task<ActionResult<Guid>> Register([FromBody] LoginDTO registerDTO)
+    {
+        var user = new AuthUser(registerDTO.UserName, registerDTO.Password)
+        {
+            LastConnection = DateTime.Now
+        };
+
+        _dbContext.AuthUsers.Add(user);
+        await _dbContext.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(Register), user.Id);
+    }
 }
