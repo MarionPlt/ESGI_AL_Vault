@@ -1,12 +1,10 @@
 USE [master]
 GO
 
+/****** Object:  Database [vault_library]    Script Date: 14/07/2022 21:06:12 ******/
 CREATE DATABASE [vault_library]
  CONTAINMENT = NONE
  ON  PRIMARY 
- --La valeur FILENAME correspond a l'emplacement du fichier de base de donnee qui va etre cree
- --L'emplacement doit correpondre a "C:\chemin_vers_le_repertoire_installation_sql_server\MSSQL15.MSSQLSERVER\MSSQL\DATA\nom_de_la_bdd.mdf"
- --"MSSQL15.MSSQLSERVER" correspond au repertoire de la version 2019 pour Sql Server
 ( NAME = N'vault_library', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\vault_library.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
  LOG ON 
 ( NAME = N'vault_library_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\vault_library_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
@@ -33,7 +31,7 @@ GO
 ALTER DATABASE [vault_library] SET ARITHABORT OFF 
 GO
 
-ALTER DATABASE [vault_library] SET AUTO_CLOSE OFF 
+ALTER DATABASE [vault_library] SET AUTO_CLOSE ON 
 GO
 
 ALTER DATABASE [vault_library] SET AUTO_SHRINK OFF 
@@ -60,7 +58,7 @@ GO
 ALTER DATABASE [vault_library] SET RECURSIVE_TRIGGERS OFF 
 GO
 
-ALTER DATABASE [vault_library] SET  DISABLE_BROKER 
+ALTER DATABASE [vault_library] SET  ENABLE_BROKER 
 GO
 
 ALTER DATABASE [vault_library] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
@@ -78,13 +76,13 @@ GO
 ALTER DATABASE [vault_library] SET PARAMETERIZATION SIMPLE 
 GO
 
-ALTER DATABASE [vault_library] SET READ_COMMITTED_SNAPSHOT OFF 
+ALTER DATABASE [vault_library] SET READ_COMMITTED_SNAPSHOT ON 
 GO
 
 ALTER DATABASE [vault_library] SET HONOR_BROKER_PRIORITY OFF 
 GO
 
-ALTER DATABASE [vault_library] SET RECOVERY FULL 
+ALTER DATABASE [vault_library] SET RECOVERY SIMPLE 
 GO
 
 ALTER DATABASE [vault_library] SET  MULTI_USER 
@@ -106,6 +104,21 @@ ALTER DATABASE [vault_library] SET DELAYED_DURABILITY = DISABLED
 GO
 
 ALTER DATABASE [vault_library] SET QUERY_STORE = OFF
+GO
+
+USE [vault_library]
+GO
+
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
 GO
 
 ALTER DATABASE [vault_library] SET  READ_WRITE 
