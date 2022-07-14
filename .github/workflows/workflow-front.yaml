@@ -1,0 +1,48 @@
+name: build,test&releaseApk
+on:
+  push:
+    paths:
+      - 'FRONT/APP.Mobile/vaultapp/**'
+      - '.github/**'
+
+defaults:
+  run:
+    working-directory: ./FRONT/APP.Mobile/vaultapp
+
+jobs:
+  building_apk:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - name: Flutter action
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.1'
+      - uses: actions/cache@v3
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.os }}-flutter-install-cache
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build apk --split-per-abi
+      - run: find ./ -type f -name "*.apk"
+      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+      - id: nextversion
+        name: next release version
+        uses: jenkins-x-plugins/jx-release-version@v2.5.2
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.nextversion.outputs.version }}
+          files: |
+            vaultapp/build/app/outputs/flutter-apk/*.apk
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          target_commitish: ${{ github.ref }}
