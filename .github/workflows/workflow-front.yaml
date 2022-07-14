@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - 'FRONT/APP.Mobile/vaultapp/**'
-      - '.github/workflow-front.yaml'
+      - '.github/workflows/workflow-front.yaml'
 
 defaults:
   run:

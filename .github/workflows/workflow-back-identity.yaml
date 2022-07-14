@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - 'BACK/**'
-      - '.github/workflow-back-identity.yaml'
+      - '.github/workflows/workflow-back-identity.yaml'
 
 defaults:
   run:
