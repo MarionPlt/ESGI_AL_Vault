@@ -1,0 +1,20 @@
+name: build,test for Backend
+on:
+  push:
+    paths:
+      - 'BACK/**'
+      - '.github/**'
+
+defaults:
+  run:
+    working-directory: ./BACK
+
+jobs:
+  api-identity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.0.x'
+      - run: dotnet build API.Identity
