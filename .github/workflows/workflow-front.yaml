@@ -22,7 +22,7 @@ jobs:
           cache: true
       - run: flutter pub get
       - run: flutter test
-      - run: flutter build apk --split-per-abi
+      - run: flutter build apk
       - run: find ./ -type f -name "*.apk"
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
       - id: nextversion
