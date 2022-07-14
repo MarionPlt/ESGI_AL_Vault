@@ -25,7 +25,6 @@ jobs:
       - run: flutter build apk --split-per-abi
       - run: find ./ -type f -name "*.apk"
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-
       - id: nextversion
         name: next release version
         uses: jenkins-x-plugins/jx-release-version@v2.5.2
