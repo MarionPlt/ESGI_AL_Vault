@@ -4,8 +4,6 @@ import 'package:http/http.dart' as http;
 
 class IdentityAuthProvider {
   Future<String> login(String username, String password) async {
-    print("login provider");
-
     final response = await http.post(
         Uri.parse("http://localhost:5238/auth/login"),
         headers: <String, String>{
