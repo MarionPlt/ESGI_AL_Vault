@@ -20,9 +20,8 @@ jobs:
       - name: Run SpecFlow Tests
         uses: cryptic-wizard/run-specflow-tests@v1.2.0
         with:
-          test-assembly-path: Tests/Library.Tests.Specs/bin/Release/net6.0
-          test-assembly-dll: Tests/Library.Tests.Specs/bin/Debug/net6.0/Library.Tests.Specs.dll
-          test-execution-json: Tests/Library.Tests.Specs/bin/Debug/net6.0/TestExecution.json
+          test-assembly-dll: BACK/API.Library/Tests/Library.Tests.Specs/bin/Debug/net6.0/Library.Tests.Specs.dll
+          test-execution-json: BACK/API.Library/Tests/Library.Tests.Specs/bin/Debug/net6.0/TestExecution.json
       - uses: actions/upload-artifact@v3
         if: success() || failure()
         with:
