@@ -7,7 +7,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./BACK/API.Identity
+    working-directory: ./BACK
 
 jobs:
   api-identity:
