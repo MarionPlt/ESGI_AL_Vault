@@ -1,9 +1,9 @@
-name: build,test for Backend identity
+name: build,test for Backend library
 on:
   push:
     paths:
       - 'BACK/**'
-      - '.github/workflows/workflow-back-identity.yaml'
+      - '.github/workflows/workflow-back-library.yaml'
 
 defaults:
   run:
@@ -17,4 +17,4 @@ jobs:
       - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '6.0.x'
-      - run: dotnet build API.Identity
+      - run: dotnet build API.Library
