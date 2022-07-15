@@ -1,15 +1,19 @@
 ﻿using Library.Infrastructure;
 using Library.Infrastructure.Entities.Items;
+using Library.Tests.Specs.Fake;
 
 namespace Library.Tests.Specs.StepDefinitions;
 
 [Binding]
 public sealed class BookStepDefinitions
 {
-    private readonly ApplicationDbContext _context;
+    private readonly ScenarioContext _scenarioContext;
 
-    public BookStepDefinitions(ApplicationDbContext context)
+    private readonly FakeApplicationDbContext _context;
+
+    public BookStepDefinitions(ScenarioContext scenarioContext, FakeApplicationDbContext context)
     {
+        _scenarioContext = scenarioContext;
         _context = context;
     }
 
