@@ -18,3 +18,14 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - run: dotnet build API.Library
+      - uses: actions/cryptic-wizard/run-specflow-tests@v1.2.0
+        with:
+          test-assembly-path: BACK/API.Library/Library.Tests.Specs/bin/Release/net6.0
+          test-assembly-dll: BACK/API.Library/Tests/Library.Tests/bin/Debug/net6.0/Library.Tests.dll
+          test-execution-json: BACK/API.Library/Tests/Library.Tests/bin/Debug/net6.0/Library.Tests.runtimeconfig.json
+          output-html: MyTestResults.html
+      - uses: actions/upload-artifact@v3
+        if: success() || failure()
+        with:
+          name: SpecflowTestResults
+          path: MyTestResults.html
