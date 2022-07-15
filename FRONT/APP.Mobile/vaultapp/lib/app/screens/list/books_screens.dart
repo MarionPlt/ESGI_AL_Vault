@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vaultapp/app/modules/books/model/book.dart';
+import 'package:vaultapp/app/modules/items/data/models/book.dart';
 import 'package:vaultapp/app/screens/list/list_element.dart';
 
 class BooksScreen extends StatelessWidget {
@@ -45,7 +45,7 @@ class BooksScreen extends StatelessWidget {
             children: [
               Column(
                 children: bookModel.map((e) =>
-                    ListElement(title: e.title, author: e.author, aquisitionDate: e.aquisitionDate, parutionDate: e.parutionDate, state: e.state)).toList(),
+                    ListElement(title: e.label, author: e.authors, aquisitionDate: e.releaseDate.toIso8601String(), parutionDate: e.releaseDate.toIso8601String(), state: e.type)).toList(),
               )
             ],
           ),
