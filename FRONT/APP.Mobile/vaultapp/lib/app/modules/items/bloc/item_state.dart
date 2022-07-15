@@ -79,6 +79,14 @@ class GetAllUserItemsSuccessState extends ItemState {
   @override
   List<Object?> get props => [userItems];
 }
+class GetAllUserItemsFailedState extends ItemState {
+  final String message;
+
+  GetAllUserItemsFailedState(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
 
 class UserItemCreatedState extends ItemState {
   final UserItem userItem;

@@ -1,11 +1,11 @@
 class Item {
-  Item({
-    this.id, 
-    required this.label, 
-    required this.type, 
-    required this.releaseDate, 
-    this.support, 
-    this.imageURL});
+  Item(
+      {this.id,
+      required this.label,
+      required this.type,
+      required this.releaseDate,
+      this.support,
+      this.imageURL});
 
   String? id;
   final String label;
@@ -21,7 +21,8 @@ class Item {
     String? support = json['support'];
     String? imageURL = json['imageURL'];
 
-    DateTime releaseDate = DateTime.fromMillisecondsSinceEpoch(json['releaseDate']);
+    DateTime releaseDate = DateTime.parse(json['releaseDate']);
+
     return Item(
         id: id,
         label: label,
