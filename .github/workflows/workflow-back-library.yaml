@@ -7,7 +7,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./BACK/API.Library
+    working-directory: ./BACK
 
 jobs:
   api-library:
