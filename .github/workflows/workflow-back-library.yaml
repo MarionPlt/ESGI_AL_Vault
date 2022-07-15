@@ -24,9 +24,8 @@ jobs:
           test-assembly-path: BACK/API.Library/Library.Tests.Specs/bin/Release/net6.0
           test-assembly-dll: BACK/API.Library/Tests/Library.Tests/bin/Debug/net6.0/Library.Tests.dll
           test-execution-json: BACK/API.Library/Tests/Library.Tests/bin/Debug/net6.0/Library.Tests.runtimeconfig.json
-          output-html: MyTestResults.html
       - uses: actions/upload-artifact@v3
         if: success() || failure()
         with:
           name: SpecflowTestResults
-          path: MyTestResults.html
+          path: \BACK\API.Library\LivingDoc.html
