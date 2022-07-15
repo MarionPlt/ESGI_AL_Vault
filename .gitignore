@@ -390,3 +390,4 @@ doc/api/
 .flutter-plugins
 .flutter-plugins-dependencies
 
+appsettings.Local.json
