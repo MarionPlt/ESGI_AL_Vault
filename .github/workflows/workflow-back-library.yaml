@@ -22,7 +22,7 @@ jobs:
         with:
           test-assembly-path: BACK/API.Library/Tests/Library.Tests.Specs/bin/Release/net6.0
           test-assembly-dll: BACK/API.Library/Tests/Library.Tests.Specs/bin/Debug/net6.0/Library.Tests.Specs.dll
-          test-execution-json: BACK/API.Library/Tests/Library.Tests.Specs/bin/Debug/net6.0/Library.Tests.Specs.runtimeconfig.json
+          test-execution-json: BACK/API.Library/Tests/Library.Tests.Specs/bin/Debug/net6.0/TestExecution.json
       - uses: actions/upload-artifact@v3
         if: success() || failure()
         with:
