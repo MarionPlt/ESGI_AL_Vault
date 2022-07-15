@@ -391,3 +391,5 @@ doc/api/
 .flutter-plugins-dependencies
 
 !*.xml
+
+appsettings.Local.json
