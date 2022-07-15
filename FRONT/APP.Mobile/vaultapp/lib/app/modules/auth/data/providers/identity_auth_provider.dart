@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class IdentityAuthProvider {
+  final authUrl = 'http://localhost:5238/auth';
+
   Future<String> login(String username, String password) async {
     final response = await http.post(
-        Uri.parse("http://localhost:5238/auth/login"),
+        Uri.parse("$authUrl/login"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -23,7 +25,7 @@ class IdentityAuthProvider {
   }
 
   Future<String> register(String username, String password) async {
-    final response = await http.post(Uri.parse("http://localhost:5238/auth"),
+    final response = await http.post(Uri.parse(authUrl),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
