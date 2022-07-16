@@ -12,20 +12,28 @@ defaults:
 jobs:
   api-library:
     runs-on: ubuntu-latest
-    steps:
+    env:
+      SpecFlowDirectory : Tests/Library.Tests.Specs
+      SpecFlowTestAssemblyPath : bin/Release/net6.0/Library.Tests.dll
+      SpecFlowTestExecutionPath : bin/Release/net6.0/TestExecution.json
+    steps:    
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '6.0.x'
-      - name: Run SpecFlow Tests
-        uses: cryptic-wizard/run-specflow-tests@v1.2.0
-        with:
-          test-assembly-path: Tests/Library.Tests.Specs/bin/Release/net6.0
-          test-assembly-dll: Library.Tests.Specs.dll
-          test-execution-json: TestExecution.json
+      - name: Build all projects
+        run: dotnet build -c Release
+        shell: bash
+      - name: Run tests
+        run: dotnet test --no-build -c Release -v minimal
+        shell: bash
+      - name: Generate SpecFlow LivingDoc
+        run: |
+          dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
+          livingdoc test-assembly $SpecFlowDirectory/$SpecFlowTestAssemblyPath -t $SpecFlowDirectory/SpecFlowTestExecutionPath -o LivingDoc.html
+        shell: bash
       - uses: actions/upload-artifact@v3
         if: success() || failure()
         with:
           name: SpecflowTestResults
           path: BACK/API.Library/LivingDoc.html
-      - run: dotnet build API.Library
