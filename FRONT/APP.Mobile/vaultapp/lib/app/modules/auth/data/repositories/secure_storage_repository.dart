@@ -9,7 +9,6 @@ class SecureStorageRepository {
   }
 
   Future<String?> getUserId() async {
-    print("get user id");
     return await _localStorageAuthProvider.retrieveUserId();
   }
 

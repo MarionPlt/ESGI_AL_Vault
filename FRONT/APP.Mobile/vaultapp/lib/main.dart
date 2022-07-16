@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vaultapp/app/app_routes.dart';
 import 'package:vaultapp/app/modules/auth/bloc/auth_bloc.dart';
 import 'package:vaultapp/app/modules/items/bloc/item_bloc.dart';
 import 'package:vaultapp/assets/theme.dart';
 import 'package:vaultapp/core/di/locator.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
+  Intl.defaultLocale = 'fr_FR';
+  initializeDateFormatting('fr_FR', null);
   setupLocator();
   runApp(const MyApp());
 }

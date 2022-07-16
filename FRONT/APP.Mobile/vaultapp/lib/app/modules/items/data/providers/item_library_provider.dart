@@ -12,7 +12,15 @@ class ItemLibraryProvider {
 
   Future<Item> getItemById(String itemId) async {
     final result = await http.get(Uri.parse("$libraryURL/item/$itemId"));
-    return Item.fromJson(jsonDecode(result.body));
+    final item = Item.fromJson(jsonDecode(result.body));
+    if (item.type == "Movie") {
+      return Movie.fromJson(jsonDecode(result.body));
+    } else if (item.type == "Book") {
+      return Book.fromJson(jsonDecode(result.body));
+    } else if (item.type == "VideoGame") {
+      return VideoGame.fromJson(jsonDecode(result.body));
+    }
+    return item;
   }
 
   Future<List<Item>> getAllItems() async {
@@ -28,9 +36,9 @@ class ItemLibraryProvider {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: book.toJson());
+        body: jsonEncode(book.toJson()));
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return Book.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.statusCode);
