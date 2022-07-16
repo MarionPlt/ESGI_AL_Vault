@@ -4,13 +4,13 @@ import 'package:vaultapp/app/modules/items/data/models/movie.dart';
 import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
 
 class UserItem {
-  UserItem({this.id, required this.acquisitionDate, required this.state, this.collection, this.item, this.itemId});
+  UserItem({this.id, required this.acquisitionDate, required this.state, this.collection, required this.item, this.itemId});
   
   String? id;
   DateTime acquisitionDate;
   String state;
   String? collection;
-  Item? item;
+  Item item;
   String? itemId;
 
   factory UserItem.fromJson(Map<String, dynamic> json) {
@@ -27,7 +27,7 @@ class UserItem {
       item = VideoGame.fromJson(json['item']);
     }
 
-    DateTime acquisitionDate = DateTime.fromMillisecondsSinceEpoch(json['acquisitionDate']);
+    DateTime acquisitionDate = DateTime.parse(json['acquisitionDate']);
     return UserItem(
         id: id,
         acquisitionDate: acquisitionDate,

@@ -1,36 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:vaultapp/app/modules/items/data/models/book.dart';
+import 'package:vaultapp/app/modules/items/data/models/user_item.dart';
 import 'package:vaultapp/app/screens/list/list_element.dart';
 
-class BooksScreen extends StatelessWidget {
-  BooksScreen({Key? key}) : super(key: key);
+class BooksScreen extends StatefulWidget {
 
-  List<Book> bookModel = [];
+  const BooksScreen({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _bookScreenState();
+}
+
+  class _bookScreenState extends State<BooksScreen> {
+
+    List<UserItem> bookModel = [];
   List<Map<String, dynamic>> bookList = [
     {
-      "id": 1,
-      "title,": 'Les misérables',
-      "author": 'Victor Hugo',
-      "aquisitionDate,": '13-07-2020',
-      "parutionDate": '13/09-1862',
-      "imagePath,": '',
-      "state": 'Neuf'
+      "id": '1',
+      "acquisitionDate": "1997-10-10",
+      "state": "neuf",
+      "collection": "Mes livres de Hugo",
+      "item": {
+        "label": 'Les misérables',
+        "type": "roman",
+        "releaseDate": "1997-10-10"
+      },
     },
     {
-      "id": 2,
-      "title,": 'Les travailleur de la mer',
-      "author": 'Victor Hugo',
-      "aquisitionDate,": '13-07-2020',
-      "parutionDate": '13/09-1862',
-      "imagePath,": '',
-      "state": 'Abimé'
+      "id": '1',
+      "acquisitionDate": "1997-10-10",
+      "state": "neuf",
+      "collection": "Mes livres de Hugo",
+      "item": {
+        "label": 'Les misérables',
+        "type": "roman",
+        "releaseDate": "1997-10-10"
+      },
     },
-
   ];
 
   @override
   void initState() {
-    bookModel = bookList.map((e) => Book.fromJson(e)).toList();
+    bookModel = bookList.map((e) => UserItem.fromJson(e)).toList();
+    print('toto');
+    print(bookModel);
   }
 
 
@@ -45,7 +58,7 @@ class BooksScreen extends StatelessWidget {
             children: [
               Column(
                 children: bookModel.map((e) =>
-                    ListElement(title: e.label, author: e.authors, aquisitionDate: e.releaseDate.toIso8601String(), parutionDate: e.releaseDate.toIso8601String(), state: e.type)).toList(),
+                    ListElement(title: e.item.label, author: 'test', aquisitionDate: e.acquisitionDate.toIso8601String(), parutionDate: e.item.releaseDate.toIso8601String(), state: e.state)).toList(),
               )
             ],
           ),
@@ -53,4 +66,9 @@ class BooksScreen extends StatelessWidget {
       ),
     );
   }
-}
+
+  }
+  
+  
+
+  

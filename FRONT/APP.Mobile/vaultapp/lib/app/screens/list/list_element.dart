@@ -6,14 +6,14 @@ class ListElement extends StatelessWidget {
     required this.title,
     required this.author,
     required this.aquisitionDate,
-    required this.parutionDate,
+    this.parutionDate,
     required this.state
   }) : super(key: key);
 
   final String title;
   final String author;
   final String aquisitionDate;
-  final String parutionDate;
+  final String? parutionDate;
   final String state;
 
 
