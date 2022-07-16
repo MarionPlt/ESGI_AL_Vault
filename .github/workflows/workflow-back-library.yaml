@@ -30,7 +30,7 @@ jobs:
       - name: Generate SpecFlow LivingDoc
         run: |
           dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
-          livingdoc test-assembly $SpecFlowDirectory/$SpecFlowTestAssemblyPath -t $SpecFlowDirectory/SpecFlowTestExecutionPath -o LivingDoc.html
+          livingdoc test-assembly $SpecFlowDirectory/$SpecFlowTestAssemblyPath -t $SpecFlowDirectory/$SpecFlowTestExecutionPath -o LivingDoc.html
         shell: bash
       - uses: actions/upload-artifact@v3
         if: success() || failure()
