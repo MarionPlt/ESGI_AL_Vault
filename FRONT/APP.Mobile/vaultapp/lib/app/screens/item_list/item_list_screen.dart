@@ -27,20 +27,22 @@ class ItemListScreen extends StatelessWidget {
         ],
         title: const Text("Liste d'objets"),
       ),
-      body: BlocBuilder<ItemBloc, ItemState>(
-        builder: (context, state) {
-          if (state is GetAllItemsSuccessState) {
-            return ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: state.items.length,
-                itemBuilder: (context, index) {
-                  return ItemTile(item: state.items[index]);
-                });
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+      body: SingleChildScrollView(
+        child: BlocBuilder<ItemBloc, ItemState>(
+          builder: (context, state) {
+            if (state is GetAllItemsSuccessState) {
+              return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: state.items.length,
+                  itemBuilder: (context, index) {
+                    return ItemTile(item: state.items[index]);
+                  });
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
