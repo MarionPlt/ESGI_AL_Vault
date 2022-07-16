@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SpecFlowDirectory : Tests/Library.Tests.Specs
-      SpecFlowTestAssemblyPath : bin/Release/net6.0/Library.Tests.dll
+      SpecFlowTestAssemblyPath : bin/Release/net6.0/Library.Tests.Specs.dll
       SpecFlowTestExecutionPath : bin/Release/net6.0/TestExecution.json
     steps:    
       - uses: actions/checkout@v3
