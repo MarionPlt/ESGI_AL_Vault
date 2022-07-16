@@ -25,14 +25,14 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: const [
                   HomeTile(
-                      label: "Gérer mes objets possédés", route: homeScreen),
+                      label: "Gérer mes objets possédés", route: userItemsScreen),
                   HomeTile(label: "Gérer mes collections", route: homeScreen),
                 ]),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: const [
                   HomeTile(
-                      label: "Chercher de nouveaux objets", route: homeScreen),
+                      label: "Chercher de nouveaux objets", route: userItemList),
                   HomeTile(label: "à suivre ...", route: homeScreen),
                 ]),
             TextButton(

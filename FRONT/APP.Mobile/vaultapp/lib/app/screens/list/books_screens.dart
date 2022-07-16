@@ -42,8 +42,6 @@ class BooksScreen extends StatefulWidget {
   @override
   void initState() {
     bookModel = bookList.map((e) => UserItem.fromJson(e)).toList();
-    print('toto');
-    print(bookModel);
   }
 
 
