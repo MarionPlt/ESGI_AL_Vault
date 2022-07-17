@@ -367,7 +367,11 @@ FodyWeavers.xsd
 
 # See https://www.dartlang.org/guides/libraries/private-files
 
-# Files and directories created by pub
+# Files and directories created by pub1
+
+vaultapp/windows
+vaultapp/linux
+
 .dart_tool/
 .packages
 build/
