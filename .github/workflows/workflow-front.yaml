@@ -33,7 +33,7 @@ jobs:
         with:
           tag_name: ${{ steps.nextversion.outputs.version }}
           files: |
-            FRONT/APP.Mobile/vaultapp/build/app/outputs/flutter-apk/*.apk
+            FRONT/APP.Mobile/vaultapp/build/app/outputs/flutter-apk/app-release.apk
           generate_release_notes: true
           fail_on_unmatched_files: true
           target_commitish: ${{ github.ref }}
