@@ -92,7 +92,11 @@ class ItemLibraryProvider {
     final result =
         await http.get(Uri.parse("$libraryURL/useritem/user/$userId"));
 
+
+    print(result.body);
     final Iterable userItemsList = jsonDecode(result.body);
+
+    print(userItemsList);
 
     return userItemsList.map((userItem) => UserItem.fromJson(userItem)).toList();
   }
