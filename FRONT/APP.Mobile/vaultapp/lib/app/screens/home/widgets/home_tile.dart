@@ -14,20 +14,25 @@ class HomeTile extends StatelessWidget {
       onTap: () {
         Navigator.pushReplacementNamed(context, route);
       },
-      child: Card(
-          child: Container(
-              color: Colors.blue[500],
-              child: SizedBox(
-                height: 40.h,
-                width: 45.w,
-                child: Center(
-                  child: Text(label,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 2.h,
-                      )),
-                ),
-              ))),
+      child: SizedBox(
+        height: 45.w,
+        width: 45.w,
+        child: Card(
+            child: Container(
+                color: Colors.blue[500],
+                child: SizedBox(
+                  height: 40.h,
+                  width: 45.w,
+                  child: Center(
+                    child: Text(label,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 2.h,
+                        )),
+                  ),
+                ))),
+      ),
     );
   }
 }

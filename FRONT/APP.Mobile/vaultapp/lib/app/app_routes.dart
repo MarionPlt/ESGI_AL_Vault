@@ -4,6 +4,7 @@ import 'package:vaultapp/app/screens/create_item/create_item_screen.dart';
 import 'package:vaultapp/app/screens/create_item/create_movie_screen.dart';
 import 'package:vaultapp/app/screens/create_item/create_video_game_screen.dart';
 import 'package:vaultapp/app/screens/home/home_screen.dart';
+import 'package:vaultapp/app/screens/item_list/item_list_screen.dart';
 import 'package:vaultapp/app/screens/login/login_screen.dart';
 import 'package:vaultapp/app/screens/splash/splash_screen.dart';
 import 'package:vaultapp/app/screens/user_items/user_item_screen.dart';
@@ -26,6 +27,7 @@ Map<String, WidgetBuilder> routes = {
   loginScreen: (context) => const LoginScreen(),
   homeScreen: (context) => const HomeScreen(),
   userItemsScreen: (context) => const UserItemScreen(),
+  itemListScreen: (context) => const ItemListScreen(),
   createItemScreen: (context) => const CreateItemScreen(),
   createBookScreen: (context) => const CreateBookScreen(),
   createMovieScreen: (context) => const CreateMovieScreen(),

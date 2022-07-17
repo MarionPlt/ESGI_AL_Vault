@@ -12,16 +12,19 @@ class ItemLibraryRepository {
     return await _itemLibraryProvider.getItemById(itemId);
   }
 
-  Future<List<Item>> getAllItems(String? typeFilter, String? labelFilter) async {
+  Future<List<Item>> getAllItems(
+      String? typeFilter, String? labelFilter) async {
     return await _itemLibraryProvider.getAllItems(typeFilter, labelFilter);
   }
 
   Future<Book> createBook(Book book) async {
     return await _itemLibraryProvider.createBook(book);
   }
+
   Future<Movie> createMovie(Movie movie) async {
     return await _itemLibraryProvider.createMovie(movie);
   }
+
   Future<VideoGame> createVideoGame(VideoGame videoGame) async {
     return await _itemLibraryProvider.createVideoGame(videoGame);
   }
@@ -31,11 +34,11 @@ class ItemLibraryRepository {
   }
 
   Future<List<UserItem>> getAllUserItems(String userId) async {
-    print('get all');
     return await _itemLibraryProvider.getAllUserItemsByUserId(userId);
   }
 
-  Future<UserItem> createUserItem(UserItem userItem, String itemId, String userId) async {
+  Future<UserItem> createUserItem(
+      UserItem userItem, String itemId, String userId) async {
     return await _itemLibraryProvider.createUserItem(userItem, itemId, userId);
   }
 

@@ -20,27 +20,35 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(title: const Text("Accueil")),
         body: Container(
           color: Colors.white,
-          child: Column(children: [
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  HomeTile(
-                      label: "Gérer mes objets possédés", route: userItemsScreen),
-                  HomeTile(label: "Gérer mes collections", route: homeScreen),
+          child: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        HomeTile(
+                            label: "Gérer mes objets possédés",
+                            route: userItemsScreen),
+                        HomeTile(
+                            label: "Gérer mes collections", route: homeScreen),
+                      ]),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        HomeTile(
+                            label: "Chercher de nouveaux objets",
+                            route: itemListScreen),
+                        HomeTile(label: "à suivre ...", route: homeScreen),
+                      ]),
+                  TextButton(
+                      onPressed: () {
+                        authBloc.add(SignOutRequested());
+                      },
+                      child: const Text("Déconnexion"))
                 ]),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  HomeTile(
-                      label: "Chercher de nouveaux objets", route: itemListScreen),
-                  HomeTile(label: "à suivre ...", route: homeScreen),
-                ]),
-            TextButton(
-                onPressed: () {
-                  authBloc.add(SignOutRequested());
-                },
-                child: const Text("Déconnexion"))
-          ]),
+          ),
         ),
       ),
     );

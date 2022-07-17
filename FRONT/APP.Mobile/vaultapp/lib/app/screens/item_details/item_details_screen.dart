@@ -55,11 +55,15 @@ class ItemDetailsScreen extends StatelessWidget {
                         return SizedBox(
                             height: 30.h,
                             width: 30.h,
-                            child: Image(
-                                image: NetworkImage(state.item.imageURL!)));
-                      } else {
-                        return SizedBox(height: 30.h, width: 30.h);
+                            child: Image.network(state.item.imageURL!,
+                                errorBuilder: (context, url, error) {
+                              return const Icon(Icons.image_not_supported);
+                            }));
                       }
+                      return SizedBox(
+                          height: 30.h,
+                          width: 30.h,
+                          child: const Icon(Icons.image_not_supported));
                     }),
                     Text(
                         "Date de sortie : ${DateFormat.yMd().format(state.item.releaseDate)}",

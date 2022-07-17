@@ -31,7 +31,8 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
 
     on<GetAllItemsEvent>((event, emit) async {
       emit(ItemLoadingState());
-      final result = await _itemLibraryRepository.getAllItems(event.typeFilter, event.labelFilter);
+      final result = await _itemLibraryRepository.getAllItems(
+          event.typeFilter, event.labelFilter);
       if (result.isNotEmpty) {
         emit(GetAllItemsSuccessState(result));
       } else {
@@ -56,21 +57,23 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
       } catch (e) {
         emit(ItemCreationFailedState(e.toString()));
       }
-     });
+    });
     on<CreateVideoGameEvent>((event, emit) async {
       emit(ItemLoadingState());
       try {
-        final result = await _itemLibraryRepository.createVideoGame(event.videoGame);
+        final result =
+            await _itemLibraryRepository.createVideoGame(event.videoGame);
         emit(ItemCreatedState(result));
       } catch (e) {
         emit(ItemCreationFailedState(e.toString()));
       }
-     });
+    });
 
     on<GetUserItemEvent>((event, emit) async {
       emit(ItemLoadingState());
       try {
-        final result = await _itemLibraryRepository.getUserItemById(event.userItemId);
+        final result =
+            await _itemLibraryRepository.getUserItemById(event.userItemId);
         emit(GetUserItemSuccessState(result));
       } catch (e) {
         emit(GetUserItemFailedState(e.toString()));
@@ -78,16 +81,13 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
     });
 
     on<GetAllUserItemsEvent>((event, emit) async {
-      print('toto');
       emit(ItemLoadingState());
       try {
         final userId = await _storageRepository.getUserId();
-        print('user id ${userId}');
         if (userId == null) {
           throw Exception("Not connected");
         }
         final result = await _itemLibraryRepository.getAllUserItems(userId);
-        print('GetAllItemEvent : ${result}');
         emit(GetAllUserItemsSuccessState(result));
       } catch (e) {
         emit(GetAllUserItemsFailedState(e.toString()));
@@ -101,7 +101,8 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
         if (userId == null) {
           throw Exception("Not connected");
         }
-        final result = await _itemLibraryRepository.createUserItem(event.userItem, event.userItem.item.id!, userId);
+        final result = await _itemLibraryRepository.createUserItem(
+            event.userItem, event.userItem.item.id!, userId);
         emit(UserItemCreatedState(result));
       } catch (e) {
         emit(UserItemCreationFailedState(e.toString()));
@@ -111,7 +112,8 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
     on<UpdateUserItemEvent>((event, emit) async {
       emit(ItemLoadingState());
       try {
-        final result = await _itemLibraryRepository.updateUserItem(event.userItem);
+        final result =
+            await _itemLibraryRepository.updateUserItem(event.userItem);
       } catch (e) {
         emit(UserItemUpdateFailedState(e.toString()));
       }

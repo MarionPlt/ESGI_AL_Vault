@@ -28,13 +28,15 @@ class ItemTile extends StatelessWidget {
                 return SizedBox(
                     height: 10.h,
                     width: 10.h,
-                    child: Image(image: NetworkImage(item.imageURL!)));
-              } else {
-                return SizedBox(
+                    child: Image.network(item.imageURL!,
+                        errorBuilder: (context, url, error) {
+                      return const Icon(Icons.image_not_supported);
+                    }));
+              }
+              return SizedBox(
                   height: 10.h,
                   width: 10.h,
-                );
-              }
+                  child: const Icon(Icons.image_not_supported));
             },
           ),
           Column(

@@ -15,7 +15,7 @@ class ListElement extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (() {
-        Navigator.pushNamed(context, homeScreen);
+        Navigator.pushReplacementNamed(context, homeScreen);
       }),
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -100,8 +100,7 @@ class ListElement extends StatelessWidget {
                   const Text('Date d\'aquisition : ',
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                  Text(
-                      DateFormat('dd/MM/yyyy').format(item.releaseDate),
+                  Text(DateFormat('dd/MM/yyyy').format(item.releaseDate),
                       style: const TextStyle(
                           fontSize: 14, fontWeight: FontWeight.normal)),
                 ],

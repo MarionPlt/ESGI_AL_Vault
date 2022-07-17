@@ -8,7 +8,7 @@ import 'package:vaultapp/app/modules/items/data/models/user_item.dart';
 import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
 
 class ItemLibraryProvider {
-  final libraryURL = 'http://localhost:5194';
+  final libraryURL = 'https://localhost:7194';
 
   Future<Item> getItemById(String itemId) async {
     final result = await http.get(Uri.parse("$libraryURL/item/$itemId"));
@@ -23,7 +23,8 @@ class ItemLibraryProvider {
     return item;
   }
 
-  Future<List<Item>> getAllItems(String? typeFilter, String? labelFilter) async {
+  Future<List<Item>> getAllItems(
+      String? typeFilter, String? labelFilter) async {
     String baseUrl = "$libraryURL/item?";
 
     if (typeFilter != null) {
@@ -92,17 +93,17 @@ class ItemLibraryProvider {
     final result =
         await http.get(Uri.parse("$libraryURL/useritem/user/$userId"));
 
-
-    print(result.body);
     final Iterable userItemsList = jsonDecode(result.body);
 
-    print(userItemsList);
-
-    return userItemsList.map((userItem) => UserItem.fromJson(userItem)).toList();
+    return userItemsList
+        .map((userItem) => UserItem.fromJson(userItem))
+        .toList();
   }
 
-  Future<UserItem> createUserItem(UserItem userItem, String itemId, String userId) async {
-    final response = await http.post(Uri.parse("$libraryURL/useritem/user/$userId/item/$itemId"),
+  Future<UserItem> createUserItem(
+      UserItem userItem, String itemId, String userId) async {
+    final response = await http.post(
+        Uri.parse("$libraryURL/useritem/user/$userId/item/$itemId"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -116,11 +117,12 @@ class ItemLibraryProvider {
 
   Future<UserItem> updateUseritem(UserItem userItem) async {
     final userItemId = userItem.id;
-    final response = await http.put(Uri.parse("$libraryURL/useritem/$userItemId"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: userItem.toJson());
+    final response =
+        await http.put(Uri.parse("$libraryURL/useritem/$userItemId"),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: userItem.toJson());
 
     if (response.statusCode == 201) {
       return UserItem.fromJson(jsonDecode(response.body));
@@ -130,7 +132,8 @@ class ItemLibraryProvider {
   }
 
   Future deleteUserItem(String userItemId) async {
-    final response = await http.delete(Uri.parse("$libraryURL/useritem/$userItemId"),
+    final response = await http.delete(
+        Uri.parse("$libraryURL/useritem/$userItemId"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });

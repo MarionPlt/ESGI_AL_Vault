@@ -58,11 +58,11 @@ class _ItemListScreenState extends State<ItemListScreen> {
         ],
         title: const Text("Liste d'objets"),
       ),
-      body: SingleChildScrollView(
-        child: BlocBuilder<ItemBloc, ItemState>(
-          builder: (context, state) {
-            if (state is GetAllItemsSuccessState) {
-              return Column(
+      body: BlocBuilder<ItemBloc, ItemState>(
+        builder: (context, state) {
+          if (state is GetAllItemsSuccessState) {
+            return SingleChildScrollView(
+              child: Column(
                 children: [
                   ExpansionPanelList(
                     children: [
@@ -153,13 +153,14 @@ class _ItemListScreenState extends State<ItemListScreen> {
                       itemBuilder: (context, index) {
                         return ItemTile(item: state.items[index]);
                       }),
+                  SizedBox(height: 5.h)
                 ],
-              );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
+              ),
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
