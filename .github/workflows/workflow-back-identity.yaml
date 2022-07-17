@@ -26,7 +26,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ${{ env.BUILD_SOURCE_PATH }}
-          target: /API_Identity
+          target: API_Identity
       - name: apply commands on distant server using SSH connexion
         uses: appleboy/ssh-action@master
         with:
