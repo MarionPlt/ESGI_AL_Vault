@@ -14,7 +14,12 @@ class GetItemEvent extends ItemEvent {
   List<Object> get props => [itemId];
 }
 
-class GetAllItemsEvent extends ItemEvent {}
+class GetAllItemsEvent extends ItemEvent {
+  final String? labelFilter;
+  final String? typeFilter;
+
+  GetAllItemsEvent(this.typeFilter, this.labelFilter);
+}
 
 class CreateBookEvent extends ItemEvent {
   final Book book;
@@ -51,10 +56,8 @@ class GetAllUserItemsEvent extends ItemEvent {}
 
 class CreateUserItemEvent extends ItemEvent {
   final UserItem userItem;
-  final String userId;
-  final String itemid;
 
-  CreateUserItemEvent(this.userItem, this.userId, this.itemid);
+  CreateUserItemEvent(this.userItem);
 }
 
 class UpdateUserItemEvent extends ItemEvent {

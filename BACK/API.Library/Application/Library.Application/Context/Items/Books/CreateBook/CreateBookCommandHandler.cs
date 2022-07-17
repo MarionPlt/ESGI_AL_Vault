@@ -1,26 +1,28 @@
-﻿using Library.Infrastructure;
+﻿using Library.API.Models.Results.Items;
+using Library.Infrastructure;
 using Library.Infrastructure.Entities.Items;
 using MediatR;
 
-namespace Library.Application.Context.Items.Books.CreateBook;
-
-public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Guid>
+namespace Library.Application.Context.Items.Books.CreateBook
 {
-    private readonly ApplicationDbContext _dbContext;
-
-    public CreateBookCommandHandler(ApplicationDbContext dbContext)
+    public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, BookResult>
     {
-        _dbContext = dbContext;
-    }
+        private readonly ApplicationDbContext _dbContext;
 
-    public async Task<Guid> Handle(CreateBookCommand request, CancellationToken cancellationToken)
-    {
-        var book = new Book(request.Label, request.ReleaseDate, request.Support, request.ImageURL, request.Editor,
-            request.Authors, request.Volume);
+        public CreateBookCommandHandler(ApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
-        _dbContext.Books.Add(book);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        public async Task<BookResult> Handle(CreateBookCommand request, CancellationToken cancellationToken)
+        {
+            var book = new Book(request.Label, request.ReleaseDate, request.Support, request.ImageURL, request.Editor,
+                request.Authors, request.Volume);
 
-        return book.Id;
+            _dbContext.Books.Add(book);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return new BookResult(book);
+        }
     }
 }

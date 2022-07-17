@@ -12,8 +12,8 @@ class ItemLibraryRepository {
     return await _itemLibraryProvider.getItemById(itemId);
   }
 
-  Future<List<Item>> getAllItems() async {
-    return await _itemLibraryProvider.getAllItems();
+  Future<List<Item>> getAllItems(String? typeFilter, String? labelFilter) async {
+    return await _itemLibraryProvider.getAllItems(typeFilter, labelFilter);
   }
 
   Future<Book> createBook(Book book) async {

@@ -1,39 +1,42 @@
-﻿using Library.API.Models.Results;
+﻿using Library.API.Models.DTOs;
+using Library.API.Models.Results;
 using Library.Application.Context.Items.GetAllItems;
 using Library.Application.Context.Items.GetItem;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Library.API.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class ItemController : ControllerBase
+namespace Library.API.Controllers
 {
-    private readonly IMediator _mediator;
-
-    public ItemController(IMediator mediator)
+    [ApiController]
+    [Route("[controller]")]
+    public class ItemController : ControllerBase
     {
-        _mediator = mediator;
-    }
+        private readonly IMediator _mediator;
 
-    [HttpGet("{itemId:guid}")]
-    public async Task<ActionResult<ItemResult>> GetItem([FromRoute] Guid itemId)
-    {
-        var query = new GetItemQuery(itemId);
+        public ItemController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
-        var result = await _mediator.Send(query);
+        [HttpGet("{itemId:guid}")]
+        public async Task<ActionResult<ItemResult>> GetItem([FromRoute] Guid itemId)
+        {
+            var query = new GetItemQuery(itemId);
 
-        return Ok(result);
-    }
+            var result = await _mediator.Send(query);
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<ItemResult>>> GetAllItems()
-    {
-        var query = new GetAllItemsQuery();
+            return Ok(result);
+        }
 
-        var result = await _mediator.Send(query);
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ItemResult>>> GetAllItems(
+            [FromQuery] PagingParameters? pagingParameters, [FromQuery] ItemFiltersDTO? filters)
+        {
+            var query = new GetAllItemsQuery(pagingParameters, filters);
 
-        return Ok(result);
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
+        }
     }
 }

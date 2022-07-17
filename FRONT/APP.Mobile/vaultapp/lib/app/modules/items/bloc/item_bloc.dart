@@ -29,7 +29,7 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
 
     on<GetAllItemsEvent>((event, emit) async {
       emit(ItemLoadingState());
-      final result = await _itemLibraryRepository.getAllItems();
+      final result = await _itemLibraryRepository.getAllItems(event.typeFilter, event.labelFilter);
       if (result.isNotEmpty) {
         emit(GetAllItemsSuccessState(result));
       } else {
@@ -96,7 +96,8 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
         if (userId == null) {
           throw Exception("Not connected");
         }
-        final result = await _itemLibraryRepository.createUserItem(event.userItem, event.itemid, userId);
+        final result = await _itemLibraryRepository.createUserItem(event.userItem, event.userItem.item.id!, userId);
+        emit(UserItemCreatedState(result));
       } catch (e) {
         emit(UserItemCreationFailedState(e.toString()));
       }

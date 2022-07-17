@@ -17,14 +17,17 @@ class UserItem {
     String? id = json['id'];
     String state = json['state'];
     String? collection = json['collection'];
-    Item? item = Item.fromJson(json['item']);
-    
-    if (item.type == 'Book') {
-      item = Book.fromJson(json['item']);
-    } else if (item.type == 'Movie') {
-      item = Movie.fromJson(json['item']);
-    } else if (item.type == 'VideoGame') {
-      item = VideoGame.fromJson(json['item']);
+    Item item = Item.fromJson(json['item']);
+    try {
+      if (item.type == 'Book') {
+        item = Book.fromJson(json['item']);
+      } else if (item.type == 'Movie') {
+        item = Movie.fromJson(json['item']);
+      } else if (item.type == 'VideoGame') {
+        item = VideoGame.fromJson(json['item']);
+      }
+    } catch (_) {
+      item =  Item.fromJson(json['item']);
     }
 
     DateTime acquisitionDate = DateTime.parse(json['acquisitionDate']);
