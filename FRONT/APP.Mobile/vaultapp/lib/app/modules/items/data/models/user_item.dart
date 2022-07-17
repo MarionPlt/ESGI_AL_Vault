@@ -8,14 +8,14 @@ class UserItem {
   
   String? id;
   DateTime acquisitionDate;
-  int state;
+  String state;
   String? collection;
   Item item;
   String? itemId;
 
   factory UserItem.fromJson(Map<String, dynamic> json) {
     String? id = json['id'];
-    int state = json['state'];
+    String state = json['state'];
     String? collection = json['collection'];
 
     Item item = Item.fromJson(json['item']);
