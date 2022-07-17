@@ -15,7 +15,6 @@ const registerScreen = "/register";
 const homeScreen = "/home";
 const userItemsScreen = "/userItems";
 const userItemDetail = "/userItemDetail";
-const userItemList = "/userList";
 const itemListScreen = "/items";
 const createItemScreen = "/additem";
 const createMovieScreen = "/addmovie";
