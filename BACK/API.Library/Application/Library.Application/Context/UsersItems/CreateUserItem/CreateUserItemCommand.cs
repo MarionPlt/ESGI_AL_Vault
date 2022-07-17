@@ -1,17 +1,19 @@
 ﻿using Library.API.Models.DTOs;
+using Library.API.Models.Results;
 using MediatR;
 
-namespace Library.Application.Context.UsersItems.CreateUserItem;
-
-public class CreateUserItemCommand : UserItemCommand, IRequest<Guid>
+namespace Library.Application.Context.UsersItems.CreateUserItem
 {
-    public CreateUserItemCommand(Guid userId, Guid itemId, UserItemDTO userItemDto) : base(userItemDto)
+    public class CreateUserItemCommand : UserItemCommand, IRequest<UserItemResult>
     {
-        ItemId = itemId;
-        UserId = userId;
+        public CreateUserItemCommand(Guid userId, Guid itemId, UserItemDTO userItemDto) : base(userItemDto)
+        {
+            ItemId = itemId;
+            UserId = userId;
+        }
+
+        public Guid ItemId { get; }
+
+        public Guid UserId { get; }
     }
-
-    public Guid ItemId { get; }
-
-    public Guid UserId { get; }
 }

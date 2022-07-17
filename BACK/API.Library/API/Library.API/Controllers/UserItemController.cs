@@ -7,58 +7,59 @@ using Library.Application.Context.UsersItems.UpdateUserItem;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Library.API.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class UserItemController : ControllerBase
+namespace Library.API.Controllers
 {
-    private readonly IMediator _mediator;
-
-    public UserItemController(IMediator mediator)
+    [ApiController]
+    [Route("[controller]")]
+    public class UserItemController : ControllerBase
     {
-        _mediator = mediator;
-    }
+        private readonly IMediator _mediator;
 
-    [HttpPost("user/{userId:guid}/item/{itemId:guid}")]
-    public async Task<ActionResult<Guid>> CreateUserItem([FromRoute] Guid userId, [FromRoute] Guid itemId,
-        [FromBody] UserItemDTO userItemDTO)
-    {
-        var command = new CreateUserItemCommand(userId, itemId, userItemDTO);
+        public UserItemController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
-        var result = await _mediator.Send(command);
+        [HttpPost("user/{userId:guid}/item/{itemId:guid}")]
+        public async Task<ActionResult<UserItemResult>> CreateUserItem([FromRoute] Guid userId, [FromRoute] Guid itemId,
+            [FromBody] UserItemDTO userItemDTO)
+        {
+            var command = new CreateUserItemCommand(userId, itemId, userItemDTO);
 
-        return CreatedAtAction(nameof(CreateUserItem), result);
-    }
+            var result = await _mediator.Send(command);
 
-    [HttpGet("user/{userId:guid}")]
-    public async Task<ActionResult<UserItemResult>> GetUserItems([FromRoute] Guid userId)
-    {
-        var query = new GetUserItemsQuery(userId);
+            return CreatedAtAction(nameof(CreateUserItem), result);
+        }
 
-        var result = await _mediator.Send(query);
+        [HttpGet("user/{userId:guid}")]
+        public async Task<ActionResult<UserItemResult>> GetUserItems([FromRoute] Guid userId)
+        {
+            var query = new GetUserItemsQuery(userId);
 
-        return Ok(result);
-    }
+            var result = await _mediator.Send(query);
 
-    [HttpGet("{userItemId:guid}")]
-    public async Task<ActionResult<UserItemResult>> GetUserItem([FromRoute] Guid userItemId)
-    {
-        var query = new GetUserItemQuery(userItemId);
+            return Ok(result);
+        }
 
-        var result = await _mediator.Send(query);
+        [HttpGet("{userItemId:guid}")]
+        public async Task<ActionResult<UserItemResult>> GetUserItem([FromRoute] Guid userItemId)
+        {
+            var query = new GetUserItemQuery(userItemId);
 
-        return Ok(result);
-    }
+            var result = await _mediator.Send(query);
 
-    [HttpPut("{userItemId:guid}")]
-    public async Task<ActionResult<UserItemResult>> UpdateUserItem([FromRoute] Guid userItemId,
-        [FromBody] UserItemDTO userItemDTO)
-    {
-        var command = new UpdateUserItemCommand(userItemId, userItemDTO);
+            return Ok(result);
+        }
 
-        var result = await _mediator.Send(command);
+        [HttpPut("{userItemId:guid}")]
+        public async Task<ActionResult<UserItemResult>> UpdateUserItem([FromRoute] Guid userItemId,
+            [FromBody] UserItemDTO userItemDTO)
+        {
+            var command = new UpdateUserItemCommand(userItemId, userItemDTO);
 
-        return Ok(result);
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
     }
 }
