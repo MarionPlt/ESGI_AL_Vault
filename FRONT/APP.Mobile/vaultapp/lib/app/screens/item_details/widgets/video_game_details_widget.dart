@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
 

@@ -5,7 +5,6 @@ import 'package:sizer/sizer.dart';
 import 'package:vaultapp/app/app_routes.dart';
 import 'package:vaultapp/app/modules/items/bloc/item_bloc.dart';
 import 'package:vaultapp/app/modules/items/data/models/book.dart';
-import 'package:vaultapp/app/modules/items/data/models/item.dart';
 import 'package:vaultapp/app/modules/items/data/models/movie.dart';
 import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
 import 'package:vaultapp/app/screens/add_user_item/add_user_item_screen.dart';
@@ -33,7 +32,7 @@ class ItemDetailsScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
-                      child: Icon(Icons.close),
+                      child: const Icon(Icons.close),
                       onTap: () {
                         Navigator.pushReplacementNamed(context, itemListScreen);
                       },
@@ -42,7 +41,7 @@ class ItemDetailsScreen extends StatelessWidget {
                 ],
                 title: Text(
                   state.item.label,
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 ),
                 automaticallyImplyLeading: true),
             body: Center(

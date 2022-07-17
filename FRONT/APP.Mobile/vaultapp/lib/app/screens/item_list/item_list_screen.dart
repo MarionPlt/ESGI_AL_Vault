@@ -28,12 +28,12 @@ class _ItemListScreenState extends State<ItemListScreen> {
   }
 
   _search() {
-    String? typeFilter = null;
+    String? typeFilter;
     if (_typeController.text != "") {
       typeFilter = _typeController.text;
     }
     DateTime? releaseDateFilter;
-    String? labelFilter = null;
+    String? labelFilter;
     if (_labelController.text.trim() != "") {
       labelFilter = _labelController.text;
     }

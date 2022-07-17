@@ -28,10 +28,10 @@ class ItemLibraryProvider {
     String baseUrl = "$libraryURL/item?";
 
     if (typeFilter != null) {
-      baseUrl = "${baseUrl}type=${typeFilter}&";
+      baseUrl = "${baseUrl}type=$typeFilter&";
     }
     if (labelFilter != null) {
-      baseUrl = "${baseUrl}label=${labelFilter}&";
+      baseUrl = "${baseUrl}label=$labelFilter&";
     }
 
     final result = await http.get(Uri.parse(baseUrl));

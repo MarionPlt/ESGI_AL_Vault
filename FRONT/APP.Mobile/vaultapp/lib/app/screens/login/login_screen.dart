@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -43,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
           title: Text("Login screen"),
         ),
         body: Form(
+          autovalidateMode: _autovalidate,
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
