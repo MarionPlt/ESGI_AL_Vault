@@ -18,3 +18,17 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - run: dotnet build API.Identity
+      - run: find ./ -type f -name "API.Identity.dll"
+      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+      - id: nextversion
+        name: next release version
+        uses: jenkins-x-plugins/jx-release-version@v2.5.2
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.nextversion.outputs.version }}
+          files: |
+            /home/runner/work/ESGI_AL_Vault/ESGI_AL_Vault/BACK/API.Identity/bin/Debug/net6.0/API.Identity.dll
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          target_commitish: ${{ github.ref }}
