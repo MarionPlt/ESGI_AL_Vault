@@ -15,14 +15,14 @@ import 'package:vaultapp/app/screens/item_details/widgets/video_game_details_wid
 import 'package:vaultapp/core/di/locator.dart';
 
 class ItemDetailsScreen extends StatelessWidget {
-  const ItemDetailsScreen({Key? key, required this.item}) : super(key: key);
+  const ItemDetailsScreen({Key? key, required this.itemId}) : super(key: key);
 
-  final Item item;
+  final String itemId;
 
   @override
   Widget build(BuildContext context) {
     final ItemBloc itemBloc = locator<ItemBloc>();
-    itemBloc.add(GetItemEvent(item.id!));
+    itemBloc.add(GetItemEvent(itemId));
 
     return BlocBuilder<ItemBloc, ItemState>(
       builder: ((context, state) {
@@ -86,7 +86,8 @@ class ItemDetailsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AddUserItemScreen(item: item)),
+                      builder: (context) =>
+                          AddUserItemScreen(item: state.item)),
                 );
               },
               child: const Icon(Icons.add),

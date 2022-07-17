@@ -62,7 +62,7 @@ class _CreateBookScreenState extends State<CreateBookScreen> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      ItemDetailsScreen(item: state.item)));
+                      ItemDetailsScreen(itemId: state.item.id!)));
         }
       },
       child: Scaffold(
