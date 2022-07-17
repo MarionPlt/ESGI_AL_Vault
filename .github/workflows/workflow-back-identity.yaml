@@ -19,6 +19,22 @@ jobs:
           dotnet-version: '6.0.x'
       - run: dotnet build API.Identity
       - run: find ./ -type f -name "API.Identity.dll"
+      - name: copying build files in distant server using SSH connexion
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: /home/runner/work/ESGI_AL_Vault/ESGI_AL_Vault/BACK/API.Identity/bin/Debug/net6.0/*
+          target: .
+      - name: apply commands on distant server using SSH connexion
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            ls -ltr
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
       - id: nextversion
         name: next release version
@@ -27,8 +43,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.nextversion.outputs.version }}
-          files: |
-            /home/runner/work/ESGI_AL_Vault/ESGI_AL_Vault/BACK/API.Identity/bin/Debug/net6.0/*
           generate_release_notes: true
           fail_on_unmatched_files: true
           target_commitish: ${{ github.ref }}
