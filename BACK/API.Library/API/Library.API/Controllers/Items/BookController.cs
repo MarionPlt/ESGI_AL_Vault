@@ -1,28 +1,30 @@
 ﻿using Library.API.Models.DTOs.Items;
+using Library.API.Models.Results.Items;
 using Library.Application.Context.Items.Books.CreateBook;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Library.API.Controllers.Items;
-
-[ApiController]
-[Route("[controller]")]
-public class BookController : ControllerBase
+namespace Library.API.Controllers.Items
 {
-    private readonly IMediator _mediator;
-
-    public BookController(IMediator mediator)
+    [ApiController]
+    [Route("[controller]")]
+    public class BookController : ControllerBase
     {
-        _mediator = mediator;
-    }
+        private readonly IMediator _mediator;
 
-    [HttpPost]
-    public async Task<ActionResult<Guid>> CreateBook([FromBody] BookDTO bookDTO)
-    {
-        var command = new CreateBookCommand(bookDTO);
+        public BookController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
-        var result = await _mediator.Send(command);
+        [HttpPost]
+        public async Task<ActionResult<BookResult>> CreateBook([FromBody] BookDTO bookDTO)
+        {
+            var command = new CreateBookCommand(bookDTO);
 
-        return Ok(result);
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
     }
 }
