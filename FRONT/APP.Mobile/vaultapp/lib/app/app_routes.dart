@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:vaultapp/app/screens/home/home_screen.dart';
-import 'package:vaultapp/app/screens/list/books_screens.dart';
 import 'package:vaultapp/app/screens/login/login_screen.dart';
 import 'package:vaultapp/app/screens/splash/splash_screen.dart';
 import 'package:vaultapp/app/screens/user_items/user_item_screen.dart';
@@ -10,6 +9,7 @@ const loginScreen = "/login";
 const registerScreen = "/register";
 const homeScreen = "/home";
 const userItemsScreen = "/userItems";
+const userItemDetail = "/userItemDetail";
 const userItemList = "/userList";
 
 Map<String, WidgetBuilder> routes = {
@@ -17,5 +17,4 @@ Map<String, WidgetBuilder> routes = {
   loginScreen: (context) => const LoginScreen(),
   homeScreen: (context) => const HomeScreen(),
   userItemsScreen: (context) => const UserItemScreen(),
-  userItemList: (context) => const BooksScreen()
 };

@@ -19,14 +19,6 @@ class UserItem {
     String? collection = json['collection'];
     Item? item = Item.fromJson(json['item']);
     
-    if (item.type == 'Book') {
-      //item = Book.fromJson(json['item']);
-    } else if (item.type == 'Movie') {
-      item = Movie.fromJson(json['item']);
-    } else if (item.type == 'VideoGame') {
-      item = VideoGame.fromJson(json['item']);
-    }
-
     DateTime acquisitionDate = DateTime.parse(json['acquisitionDate']);
     return UserItem(
         id: id,
