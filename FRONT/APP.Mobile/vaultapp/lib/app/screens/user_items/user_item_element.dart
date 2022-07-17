@@ -2,22 +2,29 @@
 
 import 'package:flutter/material.dart';
 import 'package:vaultapp/app/app_routes.dart';
-import 'package:vaultapp/app/modules/items/data/models/item.dart';
 import 'package:intl/intl.dart';
+import 'package:vaultapp/app/modules/items/data/models/user_item.dart';
+import 'package:vaultapp/app/screens/user_item_details/user_item_details_screen.dart';
+import 'package:vaultapp/app/screens/user_items/state_chips.dart';
+import 'package:vaultapp/app/screens/user_items/type_chips.dart';
 
 class ListElement extends StatelessWidget {
   const ListElement({
     Key? key,
-    required this.item,
+    required this.userItem,
   }) : super(key: key);
 
-  final Item item;
+  final UserItem userItem;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (() {
-        Navigator.pushReplacementNamed(context, homeScreen);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => UserItemDetailsScren(itemId: userItem.id!)),
+          );
       }),
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -51,38 +58,47 @@ class ListElement extends StatelessWidget {
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       10, 10, 10, 10),
-                                  child: Image.network(
-                                    'https://picsum.photos/seed/822/600',
-                                    width: 100,
-                                    height: 100,
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: Builder(builder: (context) {
+                                    if (userItem.item.imageURL != null &&
+                                        userItem.item.imageURL != "") {
+                                      return SizedBox(
+                                          child: Image.network(
+                                              userItem.item.imageURL!,
+                                              errorBuilder:
+                                                  (context, url, error) {
+                                            return const Icon(
+                                                Icons.image_not_supported);
+                                          }));
+                                    }
+                                    return SizedBox(
+                                        child: const Icon(
+                                            Icons.image_not_supported));
+                                  }),
                                 ),
                               ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 5),
-                                    child: Text(item.label,
-                                        style: const TextStyle(
+                              Container(
+                                height: 110,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 0, 5),
+                                      child: Text(userItem.item.label,
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    TypeChips(type: userItem.item.type),
+                                    StateChips(state: userItem.state),
+                                    Text('Support : ${userItem.item.support}',
+                                        style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold)),
-                                  ),
-                                  Text(
-                                    item.type,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                  Text('Support : ${item.support}',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold)),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -102,7 +118,7 @@ class ListElement extends StatelessWidget {
                   const Text('Date d\'aquisition : ',
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                  Text(DateFormat('dd/MM/yyyy').format(item.releaseDate),
+                  Text(DateFormat('dd/MM/yyyy').format(userItem.acquisitionDate),
                       style: const TextStyle(
                           fontSize: 14, fontWeight: FontWeight.normal)),
                 ],

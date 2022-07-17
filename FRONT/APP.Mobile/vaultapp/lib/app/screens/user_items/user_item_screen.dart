@@ -35,7 +35,7 @@ class UserItemScreen extends StatelessWidget {
           return ListView.builder(
               itemCount: state.userItems.length,
               itemBuilder: ((context, index) {
-                return ListElement(item: state.userItems[index].item);
+                return ListElement(userItem: state.userItems[index]);
               }));
         }
         return Center(child: CircularProgressIndicator());
