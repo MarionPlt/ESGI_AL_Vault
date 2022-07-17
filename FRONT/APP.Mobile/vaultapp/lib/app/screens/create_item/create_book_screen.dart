@@ -58,7 +58,6 @@ class _CreateBookScreenState extends State<CreateBookScreen> {
     return BlocListener<ItemBloc, ItemState>(
       listener: (context, state) {
         if (state is ItemCreatedState) {
-          print("test");
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(

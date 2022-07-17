@@ -8,7 +8,7 @@ import 'package:vaultapp/app/modules/items/data/models/user_item.dart';
 import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
 
 class ItemLibraryProvider {
-  final libraryURL = 'https://localhost:7194';
+  final libraryURL = 'http://localhost:5194';
 
   Future<Item> getItemById(String itemId) async {
     final result = await http.get(Uri.parse("$libraryURL/item/$itemId"));
@@ -23,8 +23,17 @@ class ItemLibraryProvider {
     return item;
   }
 
-  Future<List<Item>> getAllItems() async {
-    final result = await http.get(Uri.parse("$libraryURL/item"));
+  Future<List<Item>> getAllItems(String? typeFilter, String? labelFilter) async {
+    String baseUrl = "$libraryURL/item?";
+
+    if (typeFilter != null) {
+      baseUrl = "${baseUrl}type=${typeFilter}&";
+    }
+    if (labelFilter != null) {
+      baseUrl = "${baseUrl}label=${labelFilter}&";
+    }
+
+    final result = await http.get(Uri.parse(baseUrl));
 
     final Iterable itemList = jsonDecode(result.body);
 
@@ -94,7 +103,6 @@ class ItemLibraryProvider {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(userItem.toJson()));
-    print(response.body.toString());
     if (response.statusCode == 201) {
       return UserItem.fromJson(jsonDecode(response.body));
     } else {
