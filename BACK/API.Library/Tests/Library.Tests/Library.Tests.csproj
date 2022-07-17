@@ -20,4 +20,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\Library.Application\Library.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Library.Infrastructure\Library.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
