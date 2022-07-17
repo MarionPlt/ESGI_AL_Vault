@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,13 +78,16 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
     });
 
     on<GetAllUserItemsEvent>((event, emit) async {
+      print('toto');
       emit(ItemLoadingState());
       try {
         final userId = await _storageRepository.getUserId();
+        print('user id ${userId}');
         if (userId == null) {
           throw Exception("Not connected");
         }
         final result = await _itemLibraryRepository.getAllUserItems(userId);
+        print('GetAllItemEvent : ${result}');
         emit(GetAllUserItemsSuccessState(result));
       } catch (e) {
         emit(GetAllUserItemsFailedState(e.toString()));

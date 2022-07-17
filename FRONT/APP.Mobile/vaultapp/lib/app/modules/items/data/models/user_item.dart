@@ -8,19 +8,19 @@ class UserItem {
   
   String? id;
   DateTime acquisitionDate;
-  String state;
+  int state;
   String? collection;
   Item item;
   String? itemId;
 
   factory UserItem.fromJson(Map<String, dynamic> json) {
     String? id = json['id'];
-    String state = json['state'];
+    int state = json['state'];
     String? collection = json['collection'];
     Item? item = Item.fromJson(json['item']);
     
     if (item.type == 'Book') {
-      item = Book.fromJson(json['item']);
+      //item = Book.fromJson(json['item']);
     } else if (item.type == 'Movie') {
       item = Movie.fromJson(json['item']);
     } else if (item.type == 'VideoGame') {

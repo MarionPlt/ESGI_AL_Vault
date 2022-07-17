@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vaultapp/app/modules/items/bloc/item_bloc.dart';
 import 'package:vaultapp/core/di/locator.dart';
 
+import '../list/list_element.dart';
+
 class UserItemScreen extends StatelessWidget {
   const UserItemScreen({Key? key}) : super(key: key);
 
@@ -12,8 +14,9 @@ class UserItemScreen extends StatelessWidget {
 
     return BlocListener<ItemBloc, ItemState>(
         listener: ((context, state) {
+          print(state);
           if (state is! GetAllUserItemsSuccessState) {
-            itemBloc.add(GetAllUserItemsEvent());
+            //itemBloc.add(GetAllUserItemsEvent());
           }
         }),
         child: Scaffold(
@@ -22,10 +25,17 @@ class UserItemScreen extends StatelessWidget {
           ),
           body: BlocBuilder<ItemBloc, ItemState>(
             builder: (context, state) {
+             print(state);
               if (state is GetAllUserItemsSuccessState) {
-                return ListView.builder(itemBuilder: ((context, index) {
-                  return Text(state.userItems[index].id!);
+                return ListView.builder(
+                  itemCount: state.userItems.length,
+                  itemBuilder: ((context, index) {
+                  return ListElement(item: state.userItems[index].item);
                 }));
+              }
+
+              if (state is ItemInitialState) {
+                itemBloc.add(GetAllUserItemsEvent());
               }
               return Container();
             }
