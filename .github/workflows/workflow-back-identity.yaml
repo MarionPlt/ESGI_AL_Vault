@@ -9,7 +9,7 @@ defaults:
   run:
     working-directory: ./BACK
 env:
-  -BUILD_SOURCE_PATH: API.Identity/bin/Debug/net6.0/*
+  -BUILD_SOURCE_PATH: home/runner/work/ESGI_AL_Vault/ESGI_AL_Vault/BACK/API.Identity/bin/Debug/net6.0/*
 jobs:
   api-identity:
     runs-on: ubuntu-latest
