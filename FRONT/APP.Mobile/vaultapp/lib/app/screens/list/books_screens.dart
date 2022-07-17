@@ -54,10 +54,7 @@ class BooksScreen extends StatefulWidget {
         child: Center(
           child: ListView(
             children: [
-              Column(
-                children: bookModel.map((e) =>
-                    ListElement(title: e.item.label, author: 'test', aquisitionDate: e.acquisitionDate.toIso8601String(), parutionDate: e.item.releaseDate.toIso8601String(), state: e.state)).toList(),
-              )
+          
             ],
           ),
         ),

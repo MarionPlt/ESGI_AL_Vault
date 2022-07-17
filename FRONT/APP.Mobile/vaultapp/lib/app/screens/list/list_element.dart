@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:vaultapp/app/modules/items/data/models/item.dart';
+import 'package:intl/intl.dart';
 
 class ListElement extends StatelessWidget {
   const ListElement({
     Key? key,
-    required this.title,
-    required this.author,
-    required this.aquisitionDate,
-    this.parutionDate,
-    required this.state
+    required this.item,
   }) : super(key: key);
 
-  final String title;
-  final String author;
-  final String aquisitionDate;
-  final String? parutionDate;
-  final String state;
+  final Item item;
 
 
   @override
@@ -72,12 +66,12 @@ class ListElement extends StatelessWidget {
                                       .fromSTEB(
                                       0, 0, 0, 5),
                                   child: Text(
-                                    title,
+                                    item.label,
                                     style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)
                                   ),
                                 ),
                                 Text(
-                                  author,
+                                  item.type,
                                   style: const TextStyle(
                                     fontSize: 14 ,
                                     fontWeight:
@@ -85,7 +79,7 @@ class ListElement extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  state,
+                                  'Support : ${item.support}',
                                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)
                                 ),
                               ],
@@ -112,7 +106,8 @@ class ListElement extends StatelessWidget {
                   TextStyle(fontSize: 14, fontWeight: FontWeight.bold)
                 ),
                 Text(
-                  this.aquisitionDate,
+                  //'${item.releaseDate.day.toString()}/${item.releaseDate.month.toString()}/${item.releaseDate.year.toString()}',
+                  DateFormat('dd/MM/yyyy').format(item.releaseDate),
                   style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)
                 ),
               ],

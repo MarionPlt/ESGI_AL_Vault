@@ -6,14 +6,17 @@ abstract class ItemState extends Equatable {
   List<Object?> get props => [];
 }
 
-class ItemInitialState extends ItemState {}
+class ItemInitialState extends ItemState {
+  @override
+  List<Object?> get props => [];
+}
 
 class ItemLoadingState extends ItemState {
 }
 
 class GetItemSuccessState extends ItemState {
   final Item item; 
-  
+
   GetItemSuccessState(this.item);
 
   @override

@@ -31,6 +31,7 @@ class ItemLibraryRepository {
   }
 
   Future<List<UserItem>> getAllUserItems(String userId) async {
+    print('get all');
     return await _itemLibraryProvider.getAllUserItemsByUserId(userId);
   }
 
