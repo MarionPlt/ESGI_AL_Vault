@@ -1,4 +1,4 @@
-name: build,test&releaseApk
+name: build,test & releaseApk
 on:
   push:
     paths:
