@@ -96,8 +96,10 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
         if (userId == null) {
           throw Exception("Not connected");
         }
-        final result = await _itemLibraryRepository.createUserItem(event.userItem, event.itemid, userId);
+        final result = await _itemLibraryRepository.createUserItem(event.userItem, event.userItem.item.id!, userId);
+        emit(UserItemCreatedState(result));
       } catch (e) {
+        print(e);
         emit(UserItemCreationFailedState(e.toString()));
       }
     });

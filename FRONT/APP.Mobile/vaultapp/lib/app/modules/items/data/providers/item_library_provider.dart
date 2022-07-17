@@ -93,8 +93,8 @@ class ItemLibraryProvider {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: userItem.toJson());
-
+        body: jsonEncode(userItem.toJson()));
+    print(response.body.toString());
     if (response.statusCode == 201) {
       return UserItem.fromJson(jsonDecode(response.body));
     } else {

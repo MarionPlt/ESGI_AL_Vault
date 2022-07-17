@@ -8,20 +8,21 @@ import 'package:vaultapp/app/modules/items/data/models/book.dart';
 import 'package:vaultapp/app/modules/items/data/models/item.dart';
 import 'package:vaultapp/app/modules/items/data/models/movie.dart';
 import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
+import 'package:vaultapp/app/screens/add_user_item/add_user_item_screen.dart';
 import 'package:vaultapp/app/screens/item_details/widgets/book_details_widget.dart';
 import 'package:vaultapp/app/screens/item_details/widgets/movie_details.widget.dart';
 import 'package:vaultapp/app/screens/item_details/widgets/video_game_details_widget.dart';
 import 'package:vaultapp/core/di/locator.dart';
 
 class ItemDetailsScreen extends StatelessWidget {
-  const ItemDetailsScreen({Key? key, required this.itemId}) : super(key: key);
+  const ItemDetailsScreen({Key? key, required this.item}) : super(key: key);
 
-  final String itemId;
+  final Item item;
 
   @override
   Widget build(BuildContext context) {
     final ItemBloc itemBloc = locator<ItemBloc>();
-    itemBloc.add(GetItemEvent(itemId));
+    itemBloc.add(GetItemEvent(item.id!));
 
     return BlocBuilder<ItemBloc, ItemState>(
       builder: ((context, state) {
@@ -79,6 +80,16 @@ class ItemDetailsScreen extends StatelessWidget {
                       return Container();
                     })
                   ]),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddUserItemScreen(item: item)),
+                );
+              },
+              child: const Icon(Icons.add),
             ),
           );
         } else {

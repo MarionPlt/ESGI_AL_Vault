@@ -18,7 +18,7 @@ class ItemTile extends StatelessWidget {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => ItemDetailsScreen(itemId: item.id!)),
+                builder: (context) => ItemDetailsScreen(item: item)),
           );
         },
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [

@@ -51,10 +51,8 @@ class GetAllUserItemsEvent extends ItemEvent {}
 
 class CreateUserItemEvent extends ItemEvent {
   final UserItem userItem;
-  final String userId;
-  final String itemid;
 
-  CreateUserItemEvent(this.userItem, this.userId, this.itemid);
+  CreateUserItemEvent(this.userItem);
 }
 
 class UpdateUserItemEvent extends ItemEvent {
