@@ -13,40 +13,14 @@ jobs:
       - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '6.0.x'
-      - run: dotnet build API.Identity
-        working-directory: ./BACK
-      - name: stop the dotnet API on the server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            sudo systemctl stop API_Identity.service
+      - run: dotnet build -c Release
+        working-directory: ./BACK/API.Identity
+
       - name: copying build files in distant server using SSH connexion
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ./BACK/API.Identity/bin/Debug/net6.0
+          source: ./BACK/API.Identity/bin/Release/net6.0
           target: API_Identity
-      - name: run dotnet API on the server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            sudo systemctl start API_Identity.service
-      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-      - id: nextversion
-        name: next release version
-        uses: jenkins-x-plugins/jx-release-version@v2.5.2
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ steps.nextversion.outputs.version }}
-          generate_release_notes: true
-          fail_on_unmatched_files: true
-          target_commitish: ${{ github.ref }}
