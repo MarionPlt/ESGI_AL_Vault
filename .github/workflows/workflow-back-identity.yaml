@@ -30,7 +30,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd API_Identity
+            cd API_Identity/BACK/API.Identity/bin/Debug/net6.0
             ls -ltr
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
       - id: nextversion
