@@ -22,7 +22,8 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - name: Build all projects
-        run: dotnet build -c Release
+        run: dotnet build API.Library
+        working-directory: ./BACK
         shell: bash
       - name: Run tests
         run: dotnet test --no-build -c Release -v minimal
@@ -37,3 +38,11 @@ jobs:
         with:
           name: SpecflowTestResults
           path: BACK/API.Library/LivingDoc.html
+      - name: copying build files in distant server using SSH connexion
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ./BACK/API.Library/bin/Debug/net6.0
+          target: API_Library
