@@ -96,9 +96,12 @@ class ItemDetailsScreen extends StatelessWidget {
               child: const Icon(Icons.add),
             ),
           );
-        } else {
-          return Container();
+        } else if (state is ItemLoadingState) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is GetItemFailedState) {
+          return Text("Une erreur s'est produite : ${state.message}");
         }
+        return const Text("Une erreur innatendue s'est produite.");
       }),
     );
   }

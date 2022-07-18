@@ -157,9 +157,12 @@ class _ItemListScreenState extends State<ItemListScreen> {
                 ],
               ),
             );
-          } else {
+          } else if (state is ItemLoadingState) {
             return const Center(child: CircularProgressIndicator());
+          } else if (state is GetAllItemsFailedState) {
+            return Text("Une erreur s'est produite : ${state.message}");
           }
+          return const Text("Une erreur inattendue s'est produite.");
         },
       ),
       floatingActionButton: FloatingActionButton(

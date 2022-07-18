@@ -37,8 +37,12 @@ class UserItemScreen extends StatelessWidget {
               itemBuilder: ((context, index) {
                 return ListElement(item: state.userItems[index].item);
               }));
+        } else if (state is GetAllUserItemsFailedState) {
+          return Text("Une erreur s'est produite : ${state.message}.");
+        } else if (state is ItemLoadingState) {
+          return Center(child: CircularProgressIndicator());
         }
-        return Center(child: CircularProgressIndicator());
+        return Text("Une erreur inattendue s'est produite.");
       }),
     );
   }

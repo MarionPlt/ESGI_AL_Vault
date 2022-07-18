@@ -50,6 +50,11 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
       listener: (context, state) {
         if (state is UserItemCreatedState) {
           Navigator.pushReplacementNamed(context, homeScreen);
+        } else if (state is UserItemCreationFailedState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.message),
+            action: SnackBarAction(label: "Fermer", onPressed: () {}),
+          ));
         }
       },
       child: Scaffold(

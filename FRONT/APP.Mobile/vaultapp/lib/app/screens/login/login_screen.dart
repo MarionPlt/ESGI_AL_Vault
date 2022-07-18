@@ -38,6 +38,13 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         if (state is Authenticated) {
           Navigator.pushReplacementNamed(context, homeScreen);
+        } else if (state is AuthError) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+                "Erreur lors de l'authentification : ${state.errorMessage}."),
+            duration: Duration(seconds: 4),
+            action: SnackBarAction(label: "Fermer", onPressed: () {}),
+          ));
         }
       },
       child: Scaffold(

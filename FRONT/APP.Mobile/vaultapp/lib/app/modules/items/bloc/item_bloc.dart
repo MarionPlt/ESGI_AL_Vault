@@ -29,12 +29,12 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
 
     on<GetAllItemsEvent>((event, emit) async {
       emit(ItemLoadingState());
-      final result = await _itemLibraryRepository.getAllItems(
-          event.typeFilter, event.labelFilter);
-      if (result.isNotEmpty) {
+      try {
+        final result = await _itemLibraryRepository.getAllItems(
+            event.typeFilter, event.labelFilter);
         emit(GetAllItemsSuccessState(result));
-      } else {
-        emit(GetAllItemsSuccessState(const []));
+      } catch (e) {
+        emit(GetAllItemsFailedState(e.toString()));
       }
     });
 
