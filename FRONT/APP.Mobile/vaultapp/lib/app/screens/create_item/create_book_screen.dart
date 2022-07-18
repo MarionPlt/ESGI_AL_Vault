@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vaultapp/app/modules/items/bloc/item_bloc.dart';
+import 'package:vaultapp/app/modules/items/data/interceptors/creation_interceptor.dart';
 import 'package:vaultapp/app/modules/items/data/models/book.dart';
 import 'package:vaultapp/app/screens/item_details/item_details_screen.dart';
 import 'package:vaultapp/core/di/locator.dart';
@@ -15,6 +16,8 @@ class CreateBookScreen extends StatefulWidget {
 }
 
 class _CreateBookScreenState extends State<CreateBookScreen> {
+  final interceptor = ItemCreationInterceptor();
+  int _currentRequest = 0;
   final ItemBloc itemBloc = locator<ItemBloc>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _labelController = TextEditingController();
@@ -43,13 +46,14 @@ class _CreateBookScreenState extends State<CreateBookScreen> {
           support: _supportController.text,
           volume: volume);
 
-      itemBloc.add(CreateBookEvent(book));
+      itemBloc.add(CreateBookEvent(book, _currentRequest));
     }
   }
 
   @override
   void initState() {
     _releaseDateController.text = "";
+    _currentRequest = interceptor.get() + 1;
     super.initState();
   }
 
@@ -64,6 +68,7 @@ class _CreateBookScreenState extends State<CreateBookScreen> {
                   builder: (context) =>
                       ItemDetailsScreen(itemId: state.item.id!)));
         } else if (state is ItemCreationFailedState) {
+          _currentRequest = interceptor.get() + 1;
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
             action: SnackBarAction(label: "Fermer", onPressed: () {}),
