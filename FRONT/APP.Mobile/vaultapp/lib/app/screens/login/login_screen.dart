@@ -44,32 +44,37 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           title: Text("Login screen"),
         ),
-        body: Form(
-          autovalidateMode: _autovalidate,
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text("Bonjour"),
-              SizedBox(height: 7.h),
-              TextFormField(
-                decoration: const InputDecoration(
-                    labelText: 'Username',
-                    suffixIcon: Icon(Icons.email_outlined)),
-                controller: _usernameController,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                    labelText: 'Password',
-                    suffixIcon: Icon(Icons.lock_outline)),
-                controller: _passwordController,
-                obscureText: true,
-              ),
-              ElevatedButton(
-                  onPressed: _onSubmit, child: const Text('Valider')),
-            ],
+        body: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Form(
+            autovalidateMode: _autovalidate,
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text("Bonjour"),
+                SizedBox(height: 20.h),
+                TextFormField(
+                  decoration: const InputDecoration(
+                      labelText: 'Username',
+                      suffixIcon: Icon(Icons.email_outlined)),
+                  controller: _usernameController,
+                ),
+                SizedBox(height: 3.h),
+                TextFormField(
+                  decoration: const InputDecoration(
+                      labelText: 'Password',
+                      suffixIcon: Icon(Icons.lock_outline)),
+                  controller: _passwordController,
+                  obscureText: true,
+                ),
+                SizedBox(height: 3.h),
+                ElevatedButton(
+                    onPressed: _onSubmit, child: const Text('Valider')),
+              ],
+            ),
           ),
         ),
       ),
