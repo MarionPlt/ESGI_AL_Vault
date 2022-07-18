@@ -63,6 +63,11 @@ class _CreateBookScreenState extends State<CreateBookScreen> {
               MaterialPageRoute(
                   builder: (context) =>
                       ItemDetailsScreen(itemId: state.item.id!)));
+        } else if (state is ItemCreationFailedState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.message),
+            action: SnackBarAction(label: "Fermer", onPressed: () {}),
+          ));
         }
       },
       child: Scaffold(
