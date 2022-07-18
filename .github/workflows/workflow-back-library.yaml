@@ -43,5 +43,5 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ./BACK/API.Library/bin/Release/net6.0
+          source: ./BACK/API.Library/API/Library.API/bin/Release/net6.0
           target: API_Library
