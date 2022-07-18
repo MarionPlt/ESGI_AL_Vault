@@ -23,7 +23,6 @@ jobs:
           dotnet-version: '6.0.x'
       - name: Build all projects
         run: dotnet build -c Release
-        working-directory: ./BACK
         shell: bash
       - name: Run tests
         run: dotnet test --no-build -c Release -v minimal
