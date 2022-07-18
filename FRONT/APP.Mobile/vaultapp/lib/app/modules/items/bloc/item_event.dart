@@ -8,7 +8,7 @@ abstract class ItemEvent extends Equatable {
 class GetItemEvent extends ItemEvent {
   final String itemId;
 
-  GetItemEvent(this.itemId); 
+  GetItemEvent(this.itemId);
 
   @override
   List<Object> get props => [itemId];
@@ -23,12 +23,14 @@ class GetAllItemsEvent extends ItemEvent {
 
 class CreateBookEvent extends ItemEvent {
   final Book book;
+  final int currentRequestNumber;
 
-  CreateBookEvent(this.book);
-  
+  CreateBookEvent(this.book, this.currentRequestNumber);
+
   @override
   List<Object> get props => [book];
 }
+
 class CreateMovieEvent extends ItemEvent {
   final Movie movie;
 
@@ -37,6 +39,7 @@ class CreateMovieEvent extends ItemEvent {
   @override
   List<Object> get props => [movie];
 }
+
 class CreateVideoGameEvent extends ItemEvent {
   final VideoGame videoGame;
 
@@ -56,8 +59,9 @@ class GetAllUserItemsEvent extends ItemEvent {}
 
 class CreateUserItemEvent extends ItemEvent {
   final UserItem userItem;
+  final int currentRequestNumber;
 
-  CreateUserItemEvent(this.userItem);
+  CreateUserItemEvent(this.userItem, this.currentRequestNumber);
 }
 
 class UpdateUserItemEvent extends ItemEvent {
