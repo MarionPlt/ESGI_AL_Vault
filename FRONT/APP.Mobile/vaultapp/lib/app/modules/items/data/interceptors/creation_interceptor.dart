@@ -1,5 +1,13 @@
 class ItemCreationInterceptor {
-  int requestNumber = 1;
+  int requestNumber = 0;
+
+  int get() {
+    return requestNumber;
+  }
+
+  increment() {
+    requestNumber++;
+  }
 
   static final ItemCreationInterceptor _creationInterceptor =
       ItemCreationInterceptor._internal();

@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vaultapp/app/modules/auth/data/repositories/secure_storage_repository.dart';
+import 'package:vaultapp/app/modules/items/data/interceptors/creation_interceptor.dart';
 import 'package:vaultapp/app/modules/items/data/models/book.dart';
 import 'package:vaultapp/app/modules/items/data/models/item.dart';
 import 'package:vaultapp/app/modules/items/data/models/movie.dart';
@@ -13,6 +14,7 @@ part 'item_event.dart';
 part 'item_state.dart';
 
 class ItemBloc extends Bloc<ItemEvent, ItemState> {
+  final interceptor = ItemCreationInterceptor();
   final ItemLibraryRepository _itemLibraryRepository = ItemLibraryRepository();
   final SecureStorageRepository _storageRepository = SecureStorageRepository();
 
@@ -41,6 +43,12 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
     on<CreateBookEvent>((event, emit) async {
       emit(ItemLoadingState());
       try {
+        if (event.currentRequestNumber != interceptor.get()) {
+          interceptor.increment();
+        } else {
+          throw Exception(
+              "Veuillez patienter avant de soumettre à nouveau ce formulaire");
+        }
         final result = await _itemLibraryRepository.createBook(event.book);
         emit(ItemCreatedState(result));
       } catch (e) {
@@ -95,6 +103,12 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
     on<CreateUserItemEvent>((event, emit) async {
       emit(ItemLoadingState());
       try {
+        if (event.currentRequestNumber != interceptor.get()) {
+          interceptor.increment();
+        } else {
+          throw Exception(
+              "Veuillez patienter avant de soumettre à nouveau ce formulaire");
+        }
         final userId = await _storageRepository.getUserId();
         if (userId == null) {
           throw Exception("Not connected");

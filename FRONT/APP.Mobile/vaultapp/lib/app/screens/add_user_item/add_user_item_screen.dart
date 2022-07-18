@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vaultapp/app/app_routes.dart';
 import 'package:vaultapp/app/modules/items/bloc/item_bloc.dart';
+import 'package:vaultapp/app/modules/items/data/interceptors/creation_interceptor.dart';
 import 'package:vaultapp/app/modules/items/data/models/item.dart';
 import 'package:vaultapp/app/modules/items/data/models/user_item.dart';
 import 'package:vaultapp/core/di/locator.dart';
@@ -18,16 +19,8 @@ class AddUserItemScreen extends StatefulWidget {
 }
 
 class _AddUserItemScreenState extends State<AddUserItemScreen> {
-  _onSubmit(Item item) {
-    final DateTime acquisitionDate =
-        DateTime.parse(_acquisitionDateController.text);
-    final userItem = UserItem(
-        acquisitionDate: acquisitionDate,
-        state: _stateController.text,
-        collection: _collectionController.text,
-        item: item);
-    itemBloc.add(CreateUserItemEvent(userItem));
-  }
+  final interceptor = ItemCreationInterceptor();
+  int _currentRequest = 0;
 
   final ItemBloc itemBloc = locator<ItemBloc>();
 
@@ -40,7 +33,19 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
   @override
   void initState() {
     _stateController.text = "FactoryNew";
+    _currentRequest = interceptor.get() + 1;
     super.initState();
+  }
+
+  _onSubmit(Item item) {
+    final DateTime acquisitionDate =
+        DateTime.parse(_acquisitionDateController.text);
+    final userItem = UserItem(
+        acquisitionDate: acquisitionDate,
+        state: _stateController.text,
+        collection: _collectionController.text,
+        item: item);
+    itemBloc.add(CreateUserItemEvent(userItem, _currentRequest));
   }
 
   @override
@@ -50,6 +55,8 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
       listener: (context, state) {
         if (state is UserItemCreatedState) {
           Navigator.pushReplacementNamed(context, homeScreen);
+        } else if (state is UserItemCreationFailedState) {
+          _currentRequest = interceptor.get() + 1;
         }
       },
       child: Scaffold(
