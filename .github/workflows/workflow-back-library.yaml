@@ -22,7 +22,7 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - name: Build all projects
-        run: dotnet build API.Library
+        run: dotnet build -c Release
         working-directory: ./BACK
         shell: bash
       - name: Run tests
@@ -44,5 +44,5 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: ./BACK/API.Library/bin/Debug/net6.0
+          source: ./BACK/API.Library/bin/Release/net6.0
           target: API_Library
