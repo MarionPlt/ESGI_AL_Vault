@@ -6,7 +6,7 @@ using Library.Application.Context.UsersItems.CreateUserItem;
 using Library.Infrastructure;
 using Xunit;
 
-namespace Library.Tests
+namespace Library.Tests.UserItems
 {
     public class CreateUserItemCommandHandlerTests : IClassFixture<LibraryTestDatabaseFixture>
     {

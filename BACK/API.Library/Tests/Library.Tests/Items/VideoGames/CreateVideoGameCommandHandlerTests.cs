@@ -6,7 +6,7 @@ using Library.Application.Context.Items.VideoGames.CreateVideoGame;
 using Library.Infrastructure.Entities.Enumerations;
 using Xunit;
 
-namespace Library.Tests
+namespace Library.Tests.Items.VideoGames
 {
     public class CreateVideoGameCommandHandlerTests : IClassFixture<LibraryTestDatabaseFixture>
     {

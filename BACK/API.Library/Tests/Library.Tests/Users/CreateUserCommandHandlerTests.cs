@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Library.Application.Context.Users.CreateUser;
 using Xunit;
 
-namespace Library.Tests
+namespace Library.Tests.Users
 {
     public class CreateUserCommandHandlerTests : IClassFixture<LibraryTestDatabaseFixture>
     {

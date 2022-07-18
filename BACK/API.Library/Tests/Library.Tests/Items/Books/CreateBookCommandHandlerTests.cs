@@ -2,50 +2,52 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Library.Application.Context.Items.Movies.CreateMovie;
+using Library.Application.Context.Items.Books.CreateBook;
 using Library.Infrastructure.Entities.Enumerations;
 using Xunit;
 
-namespace Library.Tests
+namespace Library.Tests.Items.Books
 {
-    public class CreateMovieCommandHandlerTests : IClassFixture<LibraryTestDatabaseFixture>
+    public class CreateBookCommandHandlerTests : IClassFixture<LibraryTestDatabaseFixture>
     {
-        public CreateMovieCommandHandlerTests(LibraryTestDatabaseFixture fixture)
+        public CreateBookCommandHandlerTests(LibraryTestDatabaseFixture fixture)
             => Fixture = fixture;
 
         public LibraryTestDatabaseFixture Fixture { get; }
 
         [Fact]
-        public async Task CreateMovieCommand_add_a_movie_to_database_async()
+        public async Task CreateBookCommand_add_a_book_to_database_async()
         {
             using var context = Fixture.CreateContext();
             context.Database.BeginTransaction();
 
-            var command = new CreateMovieCommand(new()
+            var command = new CreateBookCommand(new()
             {
                 Label = "Dune",
-                Type = "Movie",
-                ReleaseDate = new DateTime(1985, 02, 06),
+                Type = "Book",
+                ReleaseDate = new DateTime(1965, 01, 01),
                 Support = "physical",
                 ImageURL = "http://localhost/image",
-                Director = "David Lynch",
-                Editor = ""
+                Authors = "	Frank Herbert",
+                Editor = "Chilton Books",
+                Volume = 1
             });
 
-            var handler = new CreateMovieCommandHandler(context);
+            var handler = new CreateBookCommandHandler(context);
 
             await handler.Handle(command, new CancellationToken());
 
             context.ChangeTracker.Clear();
 
-            Assert.True(context.Movies.Any(
+            Assert.True(context.Books.Any(
                 b => b.Label == command.Label
-                && b.Type == ItemType.Movie
+                && b.Type == ItemType.Book
                 && b.ReleaseDate == command.ReleaseDate
                 && b.Support == command.Support
                 && b.ImageURL == command.ImageURL
+                && b.Authors == command.Authors
                 && b.Editor == command.Editor
-                && b.Director == command.Director));
+                && b.Volume == command.Volume));
         }
     }
 }

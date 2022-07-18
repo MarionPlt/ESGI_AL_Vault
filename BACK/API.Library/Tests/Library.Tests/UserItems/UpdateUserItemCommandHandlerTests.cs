@@ -7,7 +7,7 @@ using Library.Infrastructure;
 using Library.Infrastructure.Entities.Enumerations;
 using Xunit;
 
-namespace Library.Tests
+namespace Library.Tests.UserItems
 {
     public class UpdateUserItemCommandHandlerTests : IClassFixture<LibraryTestDatabaseFixture>
     {
@@ -53,7 +53,7 @@ namespace Library.Tests
             context.SaveChanges();
 
             context.UserItems.Add(new(
-                context.Users.Select(u => u.Id).First(), 
+                context.Users.Select(u => u.Id).First(),
                 context.VideoGames.Select(vg => vg.Id).First(),
                 new DateTime(2012, 03, 15),
                 UserItemState.MinimalWear,
