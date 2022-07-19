@@ -40,6 +40,8 @@ class TypeChips extends StatelessWidget {
 
     return Chip(
       elevation: 3,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+
         label: Text(label,
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
             avatar: icon,

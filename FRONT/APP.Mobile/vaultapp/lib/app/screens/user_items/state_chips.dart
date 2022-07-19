@@ -55,6 +55,7 @@ class StateChips extends StatelessWidget {
 
     return Chip(
       elevation: 3,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         label: Text(stateFr,
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         backgroundColor: color);
