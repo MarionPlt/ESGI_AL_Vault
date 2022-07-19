@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -9,11 +11,19 @@ import 'package:vaultapp/assets/theme.dart';
 import 'package:vaultapp/core/di/locator.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
 void main() {
   Intl.defaultLocale = 'fr_FR';
   initializeDateFormatting('fr_FR', null);
   setupLocator();
   runApp(const MyApp());
+  HttpOverrides.global = MyHttpOverrides();
 }
 
 class MyApp extends StatelessWidget {
