@@ -38,7 +38,7 @@ jobs:
           name: SpecflowTestResults
           path: BACK/API.Library/LivingDoc.html
       - run : |
-          cd ./BACK/API.Library/API/Library.API/bin/Release/net6.0
+          cd API/Library.API/bin/Release/net6.0
           echo '${{ secrets.SETTINGS_DATABASE_LIBRARY }}' > appsettings.json
       - name: stop the dotnet API on the server
         uses: appleboy/ssh-action@master
