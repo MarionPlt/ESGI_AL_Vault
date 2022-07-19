@@ -17,7 +17,7 @@ jobs:
         working-directory: ./BACK/API.Identity
       - run : |
           cd ./BACK/API.Identity/bin/Release/net6.0
-          sed -i 's/"DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=vault_identity;Trusted_Connection=True;MultipleActiveResultSets=true"/${{ secrets.SETTINGS_DATABASE}}/g' appsettings.json
+          sed -i 's/"DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=vault_identity;Trusted_Connection=True;MultipleActiveResultSets=true"/${{ secrets.SETTINGS_DATABASE }}/g' appsettings.json
       - name: stop the dotnet API on the server
         uses: appleboy/ssh-action@master
         with:
