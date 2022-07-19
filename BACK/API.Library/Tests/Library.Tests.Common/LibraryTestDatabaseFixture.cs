@@ -1,7 +1,7 @@
 ﻿using Library.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Tests
+namespace Library.Tests.Common
 {
     public class LibraryTestDatabaseFixture
     {

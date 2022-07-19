@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Library.Application.Context.Users.CreateUser;
+using Library.Tests.Common;
 using Xunit;
 
 namespace Library.Tests.Users

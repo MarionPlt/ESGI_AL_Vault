@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Library.Application.Context.UsersItems.UpdateUserItem;
 using Library.Infrastructure;
 using Library.Infrastructure.Entities.Enumerations;
+using Library.Tests.Common;
 using Xunit;
 
 namespace Library.Tests.UserItems

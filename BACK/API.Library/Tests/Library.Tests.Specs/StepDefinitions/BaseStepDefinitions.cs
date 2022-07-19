@@ -2,6 +2,7 @@
 using Library.Application;
 using Library.Application.Behaviors;
 using Library.Infrastructure;
+using Library.Tests.Common;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
