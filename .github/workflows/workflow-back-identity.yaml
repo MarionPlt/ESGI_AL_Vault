@@ -15,6 +15,9 @@ jobs:
           dotnet-version: '6.0.x'
       - run: dotnet build -c Release
         working-directory: ./BACK/API.Identity
+      - run : |
+          cd ./BACK/API.Identitybin/Release/net6.0
+          sed -i "s/"DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=vault_identity;Trusted_Connection=True;MultipleActiveResultSets=true"/${{ secrets.SETTINGS_DATABASE}}/g" appsettings.json
       - name: stop the dotnet API on the server
         uses: appleboy/ssh-action@master
         with:
