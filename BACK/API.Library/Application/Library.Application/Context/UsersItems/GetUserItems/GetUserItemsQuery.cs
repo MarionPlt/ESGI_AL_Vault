@@ -1,9 +1,9 @@
-﻿using Library.API.Models.Results;
+﻿using Library.API.Models.Results.UserItems;
 using MediatR;
 
 namespace Library.Application.Context.UsersItems.GetUserItems;
 
-public class GetUserItemsQuery : IRequest<IEnumerable<UserItemResult>>
+public class GetUserItemsQuery : IRequest<IEnumerable<SimpleUserItemResult>>
 {
     public GetUserItemsQuery(Guid userId)
     {

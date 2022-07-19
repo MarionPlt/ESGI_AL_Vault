@@ -29,21 +29,12 @@ public class GetUserItemQueryHandler : IRequestHandler<GetUserItemQuery, UserIte
             throw new EntityNotFoundException("User item of ID " + request.UserItemId + " not found.");
         }
 
-        if (userItem.Item.Type == ItemType.Book)
+        return userItem.Item.Type switch
         {
-            return new UserBookResult(userItem);
-        }
-
-        if (userItem.Item.Type == ItemType.VideoGame)
-        {
-            return new UserVideoGameResult(userItem);
-        }
-
-        if (userItem.Item.Type == ItemType.Movie)
-        {
-            return new UserMovieResult(userItem);
-        }
-
-        throw new EntityNotFoundException();
+            ItemType.Book => new UserBookResult(userItem),
+            ItemType.VideoGame => new UserVideoGameResult(userItem),
+            ItemType.Movie => new UserMovieResult(userItem),
+            _ => new SimpleUserItemResult(userItem)
+        };
     }
 }

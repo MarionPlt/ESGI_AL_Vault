@@ -8,8 +8,8 @@ public class UserVideoGameResult : UserItemResult
 {
     public UserVideoGameResult(UserItem userItem) : base(userItem)
     {
-        VideoGame = new VideoGameResult((VideoGame)userItem.Item);
+        Item = new VideoGameResult((VideoGame)userItem.Item);
     }
 
-    public VideoGameResult VideoGame { get; set; }
+    public VideoGameResult Item { get; set; }
 }

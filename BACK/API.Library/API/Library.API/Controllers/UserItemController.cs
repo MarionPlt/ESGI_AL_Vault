@@ -1,6 +1,7 @@
 ﻿using Library.API.Models.DTOs;
 using Library.API.Models.Results;
 using Library.Application.Context.UsersItems.CreateUserItem;
+using Library.Application.Context.UsersItems.DeleteUserItem;
 using Library.Application.Context.UsersItems.GetUserItem;
 using Library.Application.Context.UsersItems.GetUserItems;
 using Library.Application.Context.UsersItems.UpdateUserItem;
@@ -60,6 +61,16 @@ namespace Library.API.Controllers
             var result = await _mediator.Send(command);
 
             return Ok(result);
+        }
+
+        [HttpDelete("{userItemId:guid}")]
+        public async Task<IActionResult> DeleteUserItem([FromRoute] Guid userItemId)
+        {
+            var command = new DeleteUserItemCommand(userItemId);
+
+            await _mediator.Send(command);
+
+            return Ok();
         }
     }
 }

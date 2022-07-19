@@ -1,6 +1,8 @@
 ﻿using Library.API.Models.Results;
+using Library.API.Models.Results.UserItems;
 using Library.Infrastructure;
 using Library.Infrastructure.Entities;
+using Library.Infrastructure.Entities.Enumerations;
 using Library.Infrastructure.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +39,13 @@ namespace Library.Application.Context.UsersItems.CreateUserItem
             _dbContext.UserItems.Add(userItem);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return new UserItemResult(userItem);
+            return userItem.Item.Type switch
+            {
+                ItemType.Book => new UserBookResult(userItem),
+                ItemType.Movie => new UserMovieResult(userItem),
+                ItemType.VideoGame => new UserVideoGameResult(userItem),
+                _ => new SimpleUserItemResult(userItem)
+            };
         }
     }
 }

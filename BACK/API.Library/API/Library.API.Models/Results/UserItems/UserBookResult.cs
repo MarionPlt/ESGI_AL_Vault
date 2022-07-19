@@ -8,8 +8,8 @@ public class UserBookResult : UserItemResult
 {
     public UserBookResult(UserItem userItem) : base(userItem)
     {
-        Book = new BookResult((Book)userItem.Item);
+        Item = new BookResult((Book)userItem.Item);
     }
 
-    public BookResult Book { get; set; }
+    public BookResult Item { get; set; }
 }

@@ -2,15 +2,14 @@
 
 namespace Library.API.Models.Results
 {
-    public class UserItemResult
+    public abstract class UserItemResult
     {
-        public UserItemResult(UserItem userItem)
+        protected UserItemResult(UserItem userItem)
         {
             Id = userItem.Id;
             AcquisitionDate = userItem.AcquisitionDate;
             State = userItem.State.ToString();
             Collection = userItem.Collection;
-            Item = new ItemResult(userItem.Item);
         }
 
         public Guid Id { get; set; }
@@ -26,7 +25,5 @@ namespace Library.API.Models.Results
         public string State { get; set; }
 
         public string? Collection { get; set; }
-
-        public ItemResult? Item { get; set; }
     }
 }

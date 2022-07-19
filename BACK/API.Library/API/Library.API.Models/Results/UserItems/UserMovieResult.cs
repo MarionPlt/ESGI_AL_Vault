@@ -8,8 +8,8 @@ public class UserMovieResult : UserItemResult
 {
     public UserMovieResult(UserItem userItem) : base(userItem)
     {
-        Movie = new MovieResult((Movie)userItem.Item);
+        Item = new MovieResult((Movie)userItem.Item);
     }
 
-    public MovieResult Movie { get; set; }
+    public MovieResult Item { get; set; }
 }

@@ -35,11 +35,12 @@ public class UpdateUserItemCommandHandler : IRequestHandler<UpdateUserItemComman
         _dbContext.Update(userItem);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        if (userItem.Item.Type == ItemType.Book)
+        return userItem.Item.Type switch
         {
-            return new UserBookResult(userItem);
-        }
-
-        return new UserItemResult(userItem);
+            ItemType.Book => new UserBookResult(userItem),
+            ItemType.Movie => new UserMovieResult(userItem),
+            ItemType.VideoGame => new UserVideoGameResult(userItem),
+            _ => new SimpleUserItemResult(userItem)
+        };
     }
 }
