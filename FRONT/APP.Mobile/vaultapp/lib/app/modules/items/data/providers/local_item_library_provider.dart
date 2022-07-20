@@ -52,9 +52,9 @@ class LocalItemLibraryProvider {
 
   Future<UserItem> getUserItem(String userItemId) async {
     await initialiseDatabase();
-    var result = await db!
-        .query(userItemTable, where: 'id = ?', whereArgs: [userItemId]);
-    return UserItem.fromJson(result.first);
+    var result = await db!.rawQuery(
+        "SELECT ui.*, i.* FROM UserItems ui INNER JOIN Items i on ui.itemId = i.id AND ui.itemId = '${userItemId}';");
+    return UserItem.fromFlatJson(result.first);
   }
 
   Future<List<UserItem>> getAllUserItems() async {
@@ -77,14 +77,17 @@ class LocalItemLibraryProvider {
   }
 
   Future insertUserItem(UserItem userItem) async {
-    if (userItem.item.type == "Book") {
-      await db!.insert(itemTable, (userItem.item as Book).toJson());
-    } else if (userItem.item.type == "Movie") {
-      await db!.insert(itemTable, (userItem.item as Movie).toJson());
-    } else if (userItem.item.type == "VideoGame") {
-      await db!.insert(itemTable, (userItem.item as VideoGame).toJson());
-    }
-    await db!.insert(userItemTable, userItem.toJson());
+    try {
+      if (userItem.item.type == "Book") {
+        await db!.insert(itemTable, (userItem.item as Book).toJson());
+      } else if (userItem.item.type == "Movie") {
+        await db!.insert(itemTable, (userItem.item as Movie).toJson());
+      } else if (userItem.item.type == "VideoGame") {
+        await db!.insert(itemTable, (userItem.item as VideoGame).toJson());
+      }
+    } on DatabaseException catch (_) {}
+    await db!.rawInsert(
+        "INSERT INTO $userItemTable VALUES ('${userItem.id}', '${userItem.item.id}', '${userItem.state}', '${userItem.acquisitionDate}', '${userItem.collection}')");
   }
 
   Future deleteAll() async {

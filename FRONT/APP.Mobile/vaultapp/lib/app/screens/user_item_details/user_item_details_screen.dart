@@ -25,137 +25,142 @@ class UserItemDetailsScren extends StatelessWidget {
     final ItemBloc itemBloc = locator<ItemBloc>();
     itemBloc.add(GetUserItemEvent(itemId));
 
-    return BlocBuilder<ItemBloc, ItemState>(
-      builder: ((context, state) {
+    return Scaffold(
+      appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: const Icon(Icons.close),
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, userItemsScreen);
+                },
+              ),
+            )
+          ],
+          title: const Text(
+            "Détails",
+            style: TextStyle(fontSize: 20),
+          ),
+          automaticallyImplyLeading: true),
+      body: BlocBuilder<ItemBloc, ItemState>(builder: (context, state) {
         if (state is GetUserItemSuccessState) {
-          return Scaffold(
-              appBar: AppBar(
-                  actions: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        child: const Icon(Icons.close),
-                        onTap: () {
-                          Navigator.pushReplacementNamed(
-                              context, userItemsScreen);
-                        },
-                      ),
-                    )
-                  ],
-                  title: const Text(
-                    "Détails",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  automaticallyImplyLeading: true),
-              body: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      child: Container(
-                        height: 20.h,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Builder(builder: (context) {
-                              if (state.userItem.item.imageURL != null &&
-                                  state.userItem.item.imageURL != "") {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: SizedBox(
-                                      height: 18.h,
-                                      width: 18.h,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: Image.network(
-                                            state.userItem.item.imageURL!,
-                                            errorBuilder:
-                                                (context, url, error) {
-                                          return const Icon(
-                                              Icons.image_not_supported);
-                                        }),
-                                      )),
-                                );
-                              }
-                              return SizedBox(
-                                  height: 20.h,
-                                  width: 20.h,
-                                  child: const Icon(Icons.image_not_supported));
-                            }),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: 45.w,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Flexible(
-                                          child: Text(state.userItem.item.label,
-                                              style: const TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                      ],
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: SizedBox(
+                    height: 20.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Builder(builder: (context) {
+                          if (state.userItem.item.imageURL != null &&
+                              state.userItem.item.imageURL != "") {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                  height: 18.h,
+                                  width: 18.h,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                        state.userItem.item.imageURL!,
+                                        errorBuilder: (context, url, error) {
+                                      return const Icon(
+                                          Icons.image_not_supported);
+                                    }),
+                                  )),
+                            );
+                          }
+                          return SizedBox(
+                              height: 20.h,
+                              width: 20.h,
+                              child: const Icon(Icons.image_not_supported));
+                        }),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 45.w,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Flexible(
+                                      child: Text(state.userItem.item.label,
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold)),
                                     ),
-                                  ),
-                                  Row(
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Wrap(
+                                    direction: Axis.horizontal,
+                                    spacing: -8.0,
                                     children: [
-                                      Wrap(
-                                        direction: Axis.horizontal,
-                                        spacing: -8.0,
-                                        children: [
-                                          TypeChips(
-                                              type: state.userItem.item.type),
-                                          StateChips(
-                                              state: state.userItem.state),
-                                        ],
-                                      ),
+                                      TypeChips(type: state.userItem.item.type),
+                                      StateChips(state: state.userItem.state),
                                     ],
                                   ),
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                      ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                   Builder(builder: (context) {
-                      if (state.userItem.item.type == "VideoGame") {
-                        return InformationsCard(
-                            item: state.userItem.item as VideoGame);
-                      }
-                      if (state.userItem.item.type == "Book") {
-                        return InformationsCard(item: state.userItem.item as Book);
-                      }
-                      if (state.userItem.item.type == "Movie") {
-                        return InformationsCard(item: state.userItem.item as Movie);
-                      }
-                      return Container();
-                    }),
-                ],
+                ),
               ),
-              floatingActionButton: FloatingActionButton(
+              Builder(builder: (context) {
+                if (state.userItem.item.type == "VideoGame") {
+                  return InformationsCard(
+                      item: state.userItem.item as VideoGame);
+                }
+                if (state.userItem.item.type == "Book") {
+                  return InformationsCard(item: state.userItem.item as Book);
+                }
+                if (state.userItem.item.type == "Movie") {
+                  return InformationsCard(item: state.userItem.item as Movie);
+                }
+                return Container();
+              }),
+            ],
+          );
+        } else if (state is ItemLoadingState) {
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          return Container();
+        }
+      }),
+      floatingActionButton:
+          BlocBuilder<ItemBloc, ItemState>(builder: (context, state) {
+        if (state is GetUserItemSuccessState) {
+          if (!state.isOffline) {
+            return FloatingActionButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          AddUserItemScreen(item: state.userItem.item, isUpdate: true, userItem: state.userItem,)),
+                      builder: (context) => AddUserItemScreen(
+                            item: state.userItem.item,
+                            isUpdate: true,
+                            userItem: state.userItem,
+                          )),
                 );
               },
               child: const Icon(Icons.edit),
-            ),
-              );
-        } else {
-          return Container();
+            );
+          }
         }
+        return Container();
       }),
     );
   }

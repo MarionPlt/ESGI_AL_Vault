@@ -23,78 +23,72 @@ class ItemDetailsScreen extends StatelessWidget {
     final ItemBloc itemBloc = locator<ItemBloc>();
     itemBloc.add(GetItemEvent(itemId));
 
-    return BlocBuilder<ItemBloc, ItemState>(
-      builder: ((context, state) {
-        if (state is GetItemSuccessState) {
-          return Scaffold(
-            appBar: AppBar(
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      child: const Icon(Icons.close),
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, itemListScreen);
-                      },
-                    ),
-                  )
-                ],
-                title: Text(
+    return Scaffold(
+      appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: const Icon(Icons.close),
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, itemListScreen);
+                },
+              ),
+            )
+          ],
+          title: BlocBuilder<ItemBloc, ItemState>(
+            builder: (context, state) {
+              if (state is GetItemSuccessState) {
+                return Text(
                   state.item.label,
                   style: const TextStyle(fontSize: 20),
-                ),
-                automaticallyImplyLeading: true),
-            body: Center(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Builder(builder: (context) {
-                      if (state.item.imageURL != null &&
-                          state.item.imageURL != "") {
-                        return SizedBox(
-                            height: 30.h,
-                            width: 30.h,
-                            child: Image.network(state.item.imageURL!,
-                                errorBuilder: (context, url, error) {
-                              return const Icon(Icons.image_not_supported);
-                            }));
-                      }
+                );
+              }
+              return Container();
+            },
+          ),
+          automaticallyImplyLeading: true),
+      body: BlocBuilder<ItemBloc, ItemState>(builder: ((context, state) {
+        if (state is GetItemSuccessState) {
+          return Center(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Builder(builder: (context) {
+                    if (state.item.imageURL != null &&
+                        state.item.imageURL != "") {
                       return SizedBox(
                           height: 30.h,
                           width: 30.h,
-                          child: const Icon(Icons.image_not_supported));
-                    }),
-                    Text(
-                        "Date de sortie : ${DateFormat.yMd().format(state.item.releaseDate)}",
-                        style: const TextStyle(fontSize: 20)),
-                    Text("Support : ${state.item.support}",
-                        style: const TextStyle(fontSize: 20)),
-                    Builder(builder: (context) {
-                      if (state.item.type == "VideoGame") {
-                        return VideoGameDetails(
-                            videoGame: state.item as VideoGame);
-                      }
-                      if (state.item.type == "Book") {
-                        return BookDetails(book: state.item as Book);
-                      }
-                      if (state.item.type == "Movie") {
-                        return MovieDetails(movie: state.item as Movie);
-                      }
-                      return Container();
-                    })
-                  ]),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          AddUserItemScreen(item: state.item)),
-                );
-              },
-              child: const Icon(Icons.add),
-            ),
+                          child: Image.network(state.item.imageURL!,
+                              errorBuilder: (context, url, error) {
+                            return const Icon(Icons.image_not_supported);
+                          }));
+                    }
+                    return SizedBox(
+                        height: 30.h,
+                        width: 30.h,
+                        child: const Icon(Icons.image_not_supported));
+                  }),
+                  Text(
+                      "Date de sortie : ${DateFormat.yMd().format(state.item.releaseDate)}",
+                      style: const TextStyle(fontSize: 20)),
+                  Text("Support : ${state.item.support}",
+                      style: const TextStyle(fontSize: 20)),
+                  Builder(builder: (context) {
+                    if (state.item.type == "VideoGame") {
+                      return VideoGameDetails(
+                          videoGame: state.item as VideoGame);
+                    }
+                    if (state.item.type == "Book") {
+                      return BookDetails(book: state.item as Book);
+                    }
+                    if (state.item.type == "Movie") {
+                      return MovieDetails(movie: state.item as Movie);
+                    }
+                    return Container();
+                  })
+                ]),
           );
         } else if (state is ItemLoadingState) {
           return const Center(child: CircularProgressIndicator());
@@ -102,6 +96,24 @@ class ItemDetailsScreen extends StatelessWidget {
           return Text("Une erreur s'est produite : ${state.message}");
         }
         return const Text("Une erreur innatendue s'est produite.");
+      })),
+      floatingActionButton:
+          BlocBuilder<ItemBloc, ItemState>(builder: (context, state) {
+        if (state is GetItemSuccessState) {
+          return FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddUserItemScreen(
+                          item: state.item,
+                        )),
+              );
+            },
+            child: const Icon(Icons.add),
+          );
+        }
+        return Container();
       }),
     );
   }
