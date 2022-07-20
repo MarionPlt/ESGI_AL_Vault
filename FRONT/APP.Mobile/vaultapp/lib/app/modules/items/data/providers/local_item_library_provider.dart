@@ -1,7 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:vaultapp/app/modules/items/data/models/book.dart';
-import 'package:vaultapp/app/modules/items/data/models/item.dart';
 import 'package:vaultapp/app/modules/items/data/models/movie.dart';
 import 'package:vaultapp/app/modules/items/data/models/user_item.dart';
 import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
@@ -13,9 +12,9 @@ class LocalItemLibraryProvider {
   final itemTable = "Items";
 
   Future initialiseDatabase() async {
-    var _databasePath = await getDatabasesPath();
+    var databasePath = await getDatabasesPath();
 
-    db = await openDatabase(join(_databasePath, 'vault.db'), version: 1,
+    db = await openDatabase(join(databasePath, 'vault.db'), version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
         CREATE TABLE $itemTable (
@@ -53,7 +52,7 @@ class LocalItemLibraryProvider {
   Future<UserItem> getUserItem(String userItemId) async {
     await initialiseDatabase();
     var result = await db!.rawQuery(
-        "SELECT ui.*, i.* FROM UserItems ui INNER JOIN Items i on ui.itemId = i.id AND ui.itemId = '${userItemId}';");
+        "SELECT ui.*, i.* FROM UserItems ui INNER JOIN Items i on ui.itemId = i.id AND ui.itemId = '$userItemId';");
     return UserItem.fromFlatJson(result.first);
   }
 

@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:vaultapp/app/app_routes.dart';
 import 'package:intl/intl.dart';
 import 'package:vaultapp/app/modules/items/data/models/user_item.dart';
 import 'package:vaultapp/app/screens/user_item_details/user_item_details_screen.dart';
@@ -57,18 +54,16 @@ class ListElement extends StatelessWidget {
                                   return SizedBox(
                                       child: Image.network(
                                           userItem.item.imageURL!,
-                                          errorBuilder:
-                                              (context, url, error) {
+                                          errorBuilder: (context, url, error) {
                                     return const Icon(
                                         Icons.image_not_supported);
                                   }));
                                 }
-                                return SizedBox(
-                                    child: const Icon(
-                                        Icons.image_not_supported));
+                                return const SizedBox(
+                                    child: Icon(Icons.image_not_supported));
                               }),
                             ),
-                            Container(
+                            SizedBox(
                               width: 67.5.w,
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -90,20 +85,22 @@ class ListElement extends StatelessWidget {
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold)),
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       SizedBox(
                                         width: 25.w,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
                                             Center(
                                               child: Column(
                                                 children: [
-                                                  Text('Date d\'aquisition',
-                                                      style: const TextStyle(
+                                                  const Text(
+                                                      'Date d\'aquisition',
+                                                      style: TextStyle(
                                                           fontSize: 12,
-                                                          fontWeight: FontWeight
-                                                              .bold)),
+                                                          fontWeight:
+                                                              FontWeight.bold)),
                                                   Text(
                                                       DateFormat('dd/MM/yyyy')
                                                           .format(userItem
@@ -121,7 +118,8 @@ class ListElement extends StatelessWidget {
                                     ],
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                     child: Column(
                                       children: [
                                         Wrap(

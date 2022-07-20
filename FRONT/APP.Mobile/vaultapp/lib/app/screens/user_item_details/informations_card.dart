@@ -1,12 +1,5 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sizer/sizer.dart';
-import 'package:vaultapp/app/modules/items/data/models/book.dart';
-import 'package:vaultapp/app/modules/items/data/models/movie.dart';
-import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
 
 import '../../modules/items/data/models/item.dart';
 
@@ -56,12 +49,13 @@ class InformationsCard extends StatelessWidget {
                   padding: const EdgeInsets.all(5.0),
                   child: RichText(
                     text: TextSpan(
-                      style: TextStyle(color: Colors.black, fontSize: 14),
+                      style: const TextStyle(color: Colors.black, fontSize: 14),
                       children: <TextSpan>[
                         TextSpan(
                             text: translate(item.keys.toList().first),
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(text: ' : '),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                        const TextSpan(text: ' : '),
                         TextSpan(
                           text: item.values.toList().first.toString(),
                         )

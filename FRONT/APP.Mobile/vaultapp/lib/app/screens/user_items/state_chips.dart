@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StateChips extends StatelessWidget {
@@ -14,48 +13,48 @@ class StateChips extends StatelessWidget {
       case 'FactoryNew':
         {
           stateFr = 'Neuf';
-          color = Color.fromARGB(255, 64, 255, 0);
+          color = const Color.fromARGB(255, 64, 255, 0);
         }
 
         break;
       case 'MinimalWear':
         {
           stateFr = 'Très légèrement abimé';
-          color = Color.fromARGB(255, 180, 207, 24);
+          color = const Color.fromARGB(255, 180, 207, 24);
         }
         break;
 
       case 'FieldTested':
         {
           stateFr = 'Peu abimé';
-          color = Color.fromARGB(255, 216, 145, 12);
+          color = const Color.fromARGB(255, 216, 145, 12);
         }
         break;
 
       case 'WellWorn':
         {
           stateFr = 'Abimé';
-          color = Color.fromARGB(255, 209, 86, 4);
+          color = const Color.fromARGB(255, 209, 86, 4);
         }
         break;
 
       case 'BattleScarred':
         {
           stateFr = 'Très abimé';
-          color = Color.fromARGB(255, 236, 5, 5);
+          color = const Color.fromARGB(255, 236, 5, 5);
         }
         break;
 
       default:
         {
           stateFr = 'inconnu';
-          color = Color.fromARGB(255, 0, 0, 0);
+          color = const Color.fromARGB(255, 0, 0, 0);
         }
     }
 
     return Chip(
-      elevation: 3,
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        elevation: 3,
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         label: Text(stateFr,
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
         backgroundColor: color);
@@ -64,6 +63,6 @@ class StateChips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform(
-        transform: new Matrix4.identity()..scale(0.8), child: _build(state));
+        transform: Matrix4.identity()..scale(0.8), child: _build(state));
   }
 }

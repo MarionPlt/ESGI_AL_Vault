@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -39,7 +37,7 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
   @override
   void initState() {
     _currentRequest = interceptor.get() + 1;
-    if (widget.isUpdate == false || widget.isUpdate == null) {
+    if (widget.isUpdate == false) {
       _stateController.text = "FactoryNew";
     } else {
       _stateController.text = widget.userItem!.state;

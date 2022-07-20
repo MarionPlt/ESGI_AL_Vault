@@ -51,7 +51,6 @@ class UserItem {
     String state = json['state'];
     String? collection = json['collection'];
 
-    String type = json['type'];
     Item item = Item.fromJson(json);
     try {
       if (item.type == 'Book') {
