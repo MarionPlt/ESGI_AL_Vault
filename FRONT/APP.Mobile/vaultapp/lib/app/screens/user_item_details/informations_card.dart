@@ -18,13 +18,13 @@ class InformationsCard extends StatelessWidget {
     List<Map<String, String>> detail = [];
 
     Map<String, String> traduction = {
-      "id": "identifiant",
+      "id": "Identifiant",
       "label": "Titre",
       "type": "Type",
       "releaseDate": "Date de sortie",
       "support": "Support",
       "editor": "Editor",
-      "authors": "auteur",
+      "authors": "Auteur",
       "volume": "Volume"
     };
 
@@ -47,8 +47,8 @@ class InformationsCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: detail
             .map((item) => Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: RichText(
+                  padding: const EdgeInsets.all(5.0),
+                  child: RichText(
                     text: TextSpan(
                       style: TextStyle(color: Colors.black, fontSize: 14),
                       children: <TextSpan>[
@@ -62,7 +62,7 @@ class InformationsCard extends StatelessWidget {
                       ],
                     ),
                   ),
-            ))
+                ))
             .toList());
   }
 
@@ -73,12 +73,13 @@ class InformationsCard extends StatelessWidget {
         // ignore: prefer_const_literals_to_create_immutables
         child: Padding(
           padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const Center(
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  'Caractéristique',
+                  'Caractéristiques',
                   style: TextStyle(fontSize: 19),
                 ),
               ),

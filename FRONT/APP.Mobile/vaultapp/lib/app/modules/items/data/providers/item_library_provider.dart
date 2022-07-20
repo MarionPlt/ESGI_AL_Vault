@@ -122,10 +122,9 @@ class ItemLibraryProvider {
     }
   }
 
-  Future<UserItem> updateUseritem(UserItem userItem, String userItemId) async {
-    print(jsonEncode(userItem.toJson()));
+  Future<UserItem> updateUseritem(UserItem userItem) async {
     final response =
-        await http.put(Uri.parse("$libraryURL/useritem/$userItemId"),
+        await http.put(Uri.parse("$libraryURL/useritem/${userItem.id}"),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },

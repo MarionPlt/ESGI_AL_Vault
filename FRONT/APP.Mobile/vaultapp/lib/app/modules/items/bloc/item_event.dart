@@ -66,9 +66,8 @@ class CreateUserItemEvent extends ItemEvent {
 
 class UpdateUserItemEvent extends ItemEvent {
   final UserItem userItem;
-  final String userItemId; 
 
-  UpdateUserItemEvent(this.userItem, this.userItemId);
+  UpdateUserItemEvent(this.userItem);
 }
 
 class RemoveUserItemEvent extends ItemEvent {
