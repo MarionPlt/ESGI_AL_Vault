@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vaultapp/app/app_routes.dart';
 import 'package:vaultapp/app/modules/auth/bloc/auth_bloc.dart';
+import 'package:vaultapp/app/modules/items/data/providers/local_item_library_provider.dart';
 import 'package:vaultapp/app/screens/home/widgets/home_tile.dart';
 import 'package:vaultapp/core/di/locator.dart';
 
@@ -10,6 +11,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sqflite = LocalItemLibraryProvider();
+    sqflite
+        .getAllUserItems()
+        .then((value) => print(value.first.toJson().toString()))
+        .catchError((error) {
+      print("erreur : $error");
+    });
+
     final AuthBloc authBloc = locator<AuthBloc>();
     return BlocListener<AuthBloc, AuthState>(
       listener: ((context, state) => {
