@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -10,9 +12,13 @@ import 'package:vaultapp/app/modules/items/data/models/user_item.dart';
 import 'package:vaultapp/core/di/locator.dart';
 
 class AddUserItemScreen extends StatefulWidget {
-  const AddUserItemScreen({Key? key, required this.item}) : super(key: key);
+  const AddUserItemScreen(
+      {Key? key, required this.item, this.isUpdate = false, this.userItem})
+      : super(key: key);
 
   final Item item;
+  final bool isUpdate;
+  final UserItem? userItem;
 
   @override
   State<AddUserItemScreen> createState() => _AddUserItemScreenState();
@@ -32,8 +38,16 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
 
   @override
   void initState() {
-    _stateController.text = "FactoryNew";
-    _currentRequest = interceptor.get() + 1;
+    if (widget.isUpdate == false || widget.isUpdate == null) {
+      _stateController.text = "FactoryNew";
+      _currentRequest = interceptor.get() + 1;
+    } else {
+      print(widget.userItem!.state);
+      _stateController.text = widget.userItem!.state;
+      _collectionController.text = widget.userItem!.collection as String;
+      _acquisitionDateController.text =
+          DateFormat('yyyy-MM-dd').format(widget.userItem!.acquisitionDate);
+    }
     super.initState();
   }
 
@@ -45,7 +59,13 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
         state: _stateController.text,
         collection: _collectionController.text,
         item: item);
-    itemBloc.add(CreateUserItemEvent(userItem, _currentRequest));
+
+    if (widget.isUpdate) {
+      print('update');
+      itemBloc.add(UpdateUserItemEvent(userItem, widget.userItem!.id!));
+    } else {
+      itemBloc.add(CreateUserItemEvent(userItem, _currentRequest));
+    }
   }
 
   @override
@@ -61,11 +81,15 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
             content: Text(state.message),
             action: SnackBarAction(label: "Fermer", onPressed: () {}),
           ));
+        } else if (state is UserItemUpdatedState) {
+          Navigator.pushReplacementNamed(context, userItemsScreen);
         }
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Ajouter un objet à votre collection"),
+          title: widget.isUpdate
+              ? const Text('Modifier un objet de votre collection')
+              : const Text("Ajouter un objet à votre collection"),
           automaticallyImplyLeading: true,
         ),
         body: Padding(
@@ -75,8 +99,11 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Objet à ajouter : ${widget.item.label}",
-                    style: const TextStyle(fontSize: 20)),
+                widget.isUpdate
+                    ? Text("Objet à modifier : ${widget.item.label}",
+                        style: const TextStyle(fontSize: 20))
+                    : Text("Objet à ajouter : ${widget.item.label}",
+                        style: const TextStyle(fontSize: 20)),
                 SizedBox(
                   height: 3.h,
                 ),
@@ -156,7 +183,9 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
                     onPressed: () {
                       _onSubmit(item);
                     },
-                    child: const Text("Ajouter l'objet"))
+                    child: widget.isUpdate
+                        ? const Text("Modifier l'objet")
+                        : const Text("Ajouter l'objet"))
               ],
             ),
           ),

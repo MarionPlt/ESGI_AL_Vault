@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';
 import 'package:vaultapp/app/app_routes.dart';
 import 'package:vaultapp/app/modules/items/bloc/item_bloc.dart';
 import 'package:vaultapp/app/modules/items/data/models/book.dart';
+import 'package:vaultapp/app/screens/add_user_item/add_user_item_screen.dart';
 import 'package:vaultapp/app/screens/user_item_details/informations_card.dart';
 import 'package:vaultapp/app/screens/user_items/state_chips.dart';
 import 'package:vaultapp/app/screens/user_items/type_chips.dart';
@@ -125,7 +126,19 @@ class UserItemDetailsScren extends StatelessWidget {
                   ),
                   InformationsCard(item: state.userItem.item as Book)
                 ],
-              ));
+              ),
+              floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          AddUserItemScreen(item: state.userItem.item, isUpdate: true, userItem: state.userItem,)),
+                );
+              },
+              child: const Icon(Icons.edit),
+            ),
+              );
         } else {
           return Container();
         }
