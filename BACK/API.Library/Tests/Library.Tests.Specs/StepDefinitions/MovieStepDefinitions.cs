@@ -4,7 +4,7 @@ using Library.Infrastructure.Entities.Items;
 namespace Library.Tests.Specs.StepDefinitions;
 
 [Binding]
-public sealed class MovieStepDefinitions : BaseStepDefinitions
+public sealed class MovieStepDefinitions : BaseStepDefinitions    
 {
     [Given(@"the movies are")]
     public void GivenTheMoviesAre(Table dataTable)

@@ -10,6 +10,7 @@ using Xunit;
 
 namespace Library.Tests.UserItems
 {
+    [Collection("NonParallelizable")]
     public class UpdateUserItemCommandHandlerTests : IClassFixture<LibraryTestDatabaseFixture>
     {
         public UpdateUserItemCommandHandlerTests(LibraryTestDatabaseFixture fixture)

@@ -9,6 +9,7 @@ using Xunit;
 
 namespace Library.Tests.Items.Movies
 {
+    [Collection("NonParallelizable")]
     public class CreateMovieCommandHandlerTests : IClassFixture<LibraryTestDatabaseFixture>
     {
         public CreateMovieCommandHandlerTests(LibraryTestDatabaseFixture fixture)

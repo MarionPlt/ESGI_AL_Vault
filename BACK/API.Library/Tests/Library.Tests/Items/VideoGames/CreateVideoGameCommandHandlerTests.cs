@@ -9,6 +9,7 @@ using Xunit;
 
 namespace Library.Tests.Items.VideoGames
 {
+    [Collection("NonParallelizable")]
     public class CreateVideoGameCommandHandlerTests : IClassFixture<LibraryTestDatabaseFixture>
     {
         public CreateVideoGameCommandHandlerTests(LibraryTestDatabaseFixture fixture)

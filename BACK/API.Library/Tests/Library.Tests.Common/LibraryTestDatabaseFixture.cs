@@ -1,17 +1,23 @@
 ﻿using Library.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Xunit.Abstractions;
 
 namespace Library.Tests.Common
 {
     public class LibraryTestDatabaseFixture
     {
-        private const string ConnectionString = @"Server=(localdb)\mssqllocaldb;Database=test_vault_library;Trusted_Connection=True";
+        private string ConnectionString;
 
         private static readonly object _lock = new();
         private static bool _databaseInitialized;
 
         public LibraryTestDatabaseFixture()
         {
+            ConnectionString = Configuration.ConnectionString;
+
+            Console.WriteLine("ConnectionString: " + ConnectionString);
+
             lock (_lock)
             {
                 if (!_databaseInitialized)
@@ -35,7 +41,7 @@ namespace Library.Tests.Common
                     .UseSqlServer(ConnectionString)
                     .Options);
 
-        public void Cleanup()
+        public async Task CleanupAsync()
         {
             using var context = CreateContext();
 
@@ -43,7 +49,7 @@ namespace Library.Tests.Common
             context.Movies.RemoveRange(context.Movies);
             context.VideoGames.RemoveRange(context.VideoGames);
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }

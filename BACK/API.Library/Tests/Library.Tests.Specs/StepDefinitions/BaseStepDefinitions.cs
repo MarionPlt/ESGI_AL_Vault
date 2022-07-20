@@ -5,6 +5,7 @@ using Library.Infrastructure;
 using Library.Tests.Common;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace Library.Tests.Specs.StepDefinitions
             services.AddValidatorsFromAssemblyContaining(typeof(ApplicationEntryPoint));
 
             services.AddDbContext<ApplicationDbContext>(
-                    options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=test_vault_library;Trusted_Connection=True"));
+                    options => options.UseSqlServer(Configuration.ConnectionString));
 
             var provider = services.BuildServiceProvider();
 
@@ -35,9 +36,9 @@ namespace Library.Tests.Specs.StepDefinitions
         }
 
         [AfterScenario]
-        public void Cleanup()
+        public async Task Cleanup()
         {
-            _fixture.Cleanup();
+            await _fixture.CleanupAsync();
         }
     }
 }
