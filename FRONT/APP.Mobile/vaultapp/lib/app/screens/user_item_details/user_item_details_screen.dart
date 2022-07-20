@@ -5,12 +5,14 @@ import 'package:sizer/sizer.dart';
 import 'package:vaultapp/app/app_routes.dart';
 import 'package:vaultapp/app/modules/items/bloc/item_bloc.dart';
 import 'package:vaultapp/app/modules/items/data/models/book.dart';
+import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
 import 'package:vaultapp/app/screens/add_user_item/add_user_item_screen.dart';
 import 'package:vaultapp/app/screens/user_item_details/informations_card.dart';
 import 'package:vaultapp/app/screens/user_items/state_chips.dart';
 import 'package:vaultapp/app/screens/user_items/type_chips.dart';
 
 import '../../../core/di/locator.dart';
+import '../../modules/items/data/models/movie.dart';
 
 class UserItemDetailsScren extends StatelessWidget {
   const UserItemDetailsScren({Key? key, required this.itemId})
@@ -124,7 +126,19 @@ class UserItemDetailsScren extends StatelessWidget {
                       ),
                     ),
                   ),
-                  InformationsCard(item: state.userItem.item as Book)
+                   Builder(builder: (context) {
+                      if (state.userItem.item.type == "VideoGame") {
+                        return InformationsCard(
+                            item: state.userItem.item as VideoGame);
+                      }
+                      if (state.userItem.item.type == "Book") {
+                        return InformationsCard(item: state.userItem.item as Book);
+                      }
+                      if (state.userItem.item.type == "Movie") {
+                        return InformationsCard(item: state.userItem.item as Movie);
+                      }
+                      return Container();
+                    }),
                 ],
               ),
               floatingActionButton: FloatingActionButton(

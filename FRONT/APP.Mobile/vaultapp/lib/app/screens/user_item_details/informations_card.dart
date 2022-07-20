@@ -14,7 +14,7 @@ class InformationsCard extends StatelessWidget {
 
   final dynamic item;
 
-  Widget caract(Book item) {
+  Widget caract(dynamic item) {
     List<Map<String, String>> detail = [];
 
     Map<String, String> traduction = {

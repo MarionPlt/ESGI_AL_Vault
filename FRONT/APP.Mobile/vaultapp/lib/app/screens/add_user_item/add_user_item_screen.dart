@@ -38,13 +38,13 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
 
   @override
   void initState() {
+    _currentRequest = interceptor.get() + 1;
     if (widget.isUpdate == false || widget.isUpdate == null) {
       _stateController.text = "FactoryNew";
-      _currentRequest = interceptor.get() + 1;
     } else {
       print(widget.userItem!.state);
       _stateController.text = widget.userItem!.state;
-      _collectionController.text = widget.userItem!.collection as String;
+      _collectionController.text = widget.userItem!.collection ?? "";
       _acquisitionDateController.text =
           DateFormat('yyyy-MM-dd').format(widget.userItem!.acquisitionDate);
     }
@@ -61,7 +61,6 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
         item: item);
 
     if (widget.isUpdate) {
-      print('update');
       itemBloc.add(UpdateUserItemEvent(userItem, widget.userItem!.id!));
     } else {
       itemBloc.add(CreateUserItemEvent(userItem, _currentRequest));
