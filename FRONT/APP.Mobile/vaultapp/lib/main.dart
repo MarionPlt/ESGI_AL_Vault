@@ -26,6 +26,7 @@ void main() {
   setupLocator();
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
+  HttpOverrides.global = MyHttpOverrides();
 }
 
 class MyApp extends StatelessWidget {
