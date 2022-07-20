@@ -69,8 +69,9 @@ class ItemCreationFailedState extends ItemState {
 
 class GetUserItemSuccessState extends ItemState {
   final UserItem userItem;
+  final bool isOffline;
 
-  GetUserItemSuccessState(this.userItem);
+  GetUserItemSuccessState(this.userItem, {this.isOffline = false});
 
   @override
   List<Object?> get props => [userItem];
@@ -87,8 +88,9 @@ class GetUserItemFailedState extends ItemState {
 
 class GetAllUserItemsSuccessState extends ItemState {
   final List<UserItem> userItems;
+  final bool isOffline;
 
-  GetAllUserItemsSuccessState(this.userItems);
+  GetAllUserItemsSuccessState(this.userItems, {this.isOffline = false});
 
   @override
   List<Object?> get props => [userItems];

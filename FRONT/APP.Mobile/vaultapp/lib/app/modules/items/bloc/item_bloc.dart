@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +11,7 @@ import 'package:vaultapp/app/modules/items/data/models/movie.dart';
 import 'package:vaultapp/app/modules/items/data/models/user_item.dart';
 import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
 import 'package:vaultapp/app/modules/items/data/repositories/item_library_repository.dart';
+import 'package:vaultapp/app/modules/items/data/repositories/local_item_livrary_repository.dart';
 
 part 'item_event.dart';
 part 'item_state.dart';
@@ -17,6 +20,8 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
   final interceptor = ItemCreationInterceptor();
   final ItemLibraryRepository _itemLibraryRepository = ItemLibraryRepository();
   final SecureStorageRepository _storageRepository = SecureStorageRepository();
+  final LocalItemLibraryRepository _localItemLibraryRepository =
+      LocalItemLibraryRepository();
 
   ItemBloc() : super(ItemInitialState()) {
     on<GetItemEvent>((event, emit) async {
@@ -81,6 +86,10 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
         final result =
             await _itemLibraryRepository.getUserItemById(event.userItemId);
         emit(GetUserItemSuccessState(result));
+      } on SocketException catch (_) {
+        final result =
+            await _localItemLibraryRepository.getUserItem(event.userItemId);
+        emit(GetUserItemSuccessState(result, isOffline: true));
       } catch (e) {
         emit(GetUserItemFailedState(e.toString()));
       }
@@ -95,6 +104,9 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
         }
         final result = await _itemLibraryRepository.getAllUserItems(userId);
         emit(GetAllUserItemsSuccessState(result));
+      } on SocketException catch (_) {
+        final result = await _localItemLibraryRepository.getAllUserItems();
+        emit(GetAllUserItemsSuccessState(result, isOffline: true));
       } catch (e) {
         emit(GetAllUserItemsFailedState(e.toString()));
       }
@@ -115,6 +127,7 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
         }
         final result = await _itemLibraryRepository.createUserItem(
             event.userItem, event.userItem.item.id!, userId);
+        await _localItemLibraryRepository.addUserItem(result);
         emit(UserItemCreatedState(result));
       } catch (e) {
         emit(UserItemCreationFailedState(e.toString()));
