@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:vaultapp/app/screens/add_user_item/add_user_item_screen.dart';
 import 'package:vaultapp/app/screens/create_item/create_book_screen.dart';
 import 'package:vaultapp/app/screens/create_item/create_item_screen.dart';
 import 'package:vaultapp/app/screens/create_item/create_movie_screen.dart';
@@ -15,12 +16,12 @@ const registerScreen = "/register";
 const homeScreen = "/home";
 const userItemsScreen = "/userItems";
 const userItemDetail = "/userItemDetail";
-const userItemList = "/userList";
 const itemListScreen = "/items";
 const createItemScreen = "/additem";
 const createMovieScreen = "/addmovie";
 const createBookScreen = "/addbook";
 const createVideoGameScreen = "/addvideogame";
+const updateUserItem = "updateuserItem";
 
 Map<String, WidgetBuilder> routes = {
   splashScreen: (context) => const SplashScreen(),
@@ -31,5 +32,5 @@ Map<String, WidgetBuilder> routes = {
   createItemScreen: (context) => const CreateItemScreen(),
   createBookScreen: (context) => const CreateBookScreen(),
   createMovieScreen: (context) => const CreateMovieScreen(),
-  createVideoGameScreen: (context) => const CreateVideoGameScreen()
+  createVideoGameScreen: (context) => const CreateVideoGameScreen(),
 };

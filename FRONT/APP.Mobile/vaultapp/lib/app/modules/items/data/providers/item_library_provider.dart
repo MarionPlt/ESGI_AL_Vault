@@ -115,16 +115,16 @@ class ItemLibraryProvider {
     }
   }
 
-  Future<UserItem> updateUseritem(UserItem userItem) async {
-    final userItemId = userItem.id;
+  Future<UserItem> updateUseritem(UserItem userItem, String userItemId) async {
+    print(jsonEncode(userItem.toJson()));
     final response =
         await http.put(Uri.parse("$libraryURL/useritem/$userItemId"),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },
-            body: userItem.toJson());
+            body: jsonEncode(userItem.toJson()));
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return UserItem.fromJson(jsonDecode(response.body));
     } else {
       throw Exception(response.statusCode);

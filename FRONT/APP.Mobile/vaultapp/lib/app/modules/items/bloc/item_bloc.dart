@@ -122,12 +122,15 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
     });
 
     on<UpdateUserItemEvent>((event, emit) async {
+      print('enter state');
       emit(ItemLoadingState());
       try {
         final result =
-            await _itemLibraryRepository.updateUserItem(event.userItem);
+            await _itemLibraryRepository.updateUserItem(event.userItem, event.userItemId);
+        print(result);
         emit(UserItemUpdatedState(result));
       } catch (e) {
+        print(e);
         emit(UserItemUpdateFailedState(e.toString()));
       }
     });
