@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:vaultapp/app/modules/items/data/models/book.dart';
 import 'package:vaultapp/app/modules/items/data/models/movie.dart';
@@ -12,10 +13,10 @@ import '../../modules/items/data/models/item.dart';
 class InformationsCard extends StatelessWidget {
   const InformationsCard({Key? key, required this.item}) : super(key: key);
 
-  final dynamic item;
+  final Item item;
 
-  Widget caract(dynamic item) {
-    List<Map<String, String>> detail = [];
+  Widget caract(Item item) {
+    List<Map<String, dynamic>> detail = [];
 
     Map<String, String> traduction = {
       "id": "Identifiant",
@@ -32,13 +33,18 @@ class InformationsCard extends StatelessWidget {
       if (traduction.containsKey(key)) {
         return traduction[key]!;
       } else {
-        return key;
+        return key.toString();
       }
     }
 
     item.toJson().forEach((key, value) {
-      if (value != null && value.length > 0) {
-        String cle = translate(key);
+      final v = value.toString();
+      if (v.isNotEmpty) {
+        if (key == "releaseDate") {
+          final date = DateTime.parse(value);
+          detail.add({key: DateFormat.yMd().format(date)});
+          return;
+        }
         detail.add({key: value});
       }
     });
@@ -57,7 +63,7 @@ class InformationsCard extends StatelessWidget {
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         TextSpan(text: ' : '),
                         TextSpan(
-                          text: item.values.toList().first,
+                          text: item.values.toList().first.toString(),
                         )
                       ],
                     ),
