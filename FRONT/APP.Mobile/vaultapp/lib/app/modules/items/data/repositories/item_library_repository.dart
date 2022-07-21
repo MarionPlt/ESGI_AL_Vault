@@ -42,7 +42,7 @@ class ItemLibraryRepository {
     return await _itemLibraryProvider.createUserItem(userItem, itemId, userId);
   }
 
-  Future<UserItem> updateUserItem(UserItem userItem, String userItemId) async {
-    return await _itemLibraryProvider.updateUseritem(userItem, userItemId);
+  Future<UserItem> updateUserItem(UserItem userItem) async {
+    return await _itemLibraryProvider.updateUseritem(userItem);
   }
 }

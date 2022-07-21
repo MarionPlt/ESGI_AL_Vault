@@ -1,30 +1,24 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
-import 'package:vaultapp/app/modules/items/data/models/book.dart';
-import 'package:vaultapp/app/modules/items/data/models/movie.dart';
-import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
+import 'package:intl/intl.dart';
 
 import '../../modules/items/data/models/item.dart';
 
 class InformationsCard extends StatelessWidget {
   const InformationsCard({Key? key, required this.item}) : super(key: key);
 
-  final dynamic item;
+  final Item item;
 
-  Widget caract(dynamic item) {
-    List<Map<String, String>> detail = [];
+  Widget caract(Item item) {
+    List<Map<String, dynamic>> detail = [];
 
     Map<String, String> traduction = {
-      "id": "identifiant",
+      "id": "Identifiant",
       "label": "Titre",
       "type": "Type",
       "releaseDate": "Date de sortie",
       "support": "Support",
       "editor": "Editor",
-      "authors": "auteur",
+      "authors": "Auteur",
       "volume": "Volume"
     };
 
@@ -32,13 +26,18 @@ class InformationsCard extends StatelessWidget {
       if (traduction.containsKey(key)) {
         return traduction[key]!;
       } else {
-        return key;
+        return key.toString();
       }
     }
 
     item.toJson().forEach((key, value) {
-      if (value != null && value.length > 0) {
-        String cle = translate(key);
+      final v = value.toString();
+      if (v.isNotEmpty) {
+        if (key == "releaseDate") {
+          final date = DateTime.parse(value);
+          detail.add({key: DateFormat.yMd().format(date)});
+          return;
+        }
         detail.add({key: value});
       }
     });
@@ -47,22 +46,23 @@ class InformationsCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: detail
             .map((item) => Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: RichText(
+                  padding: const EdgeInsets.all(5.0),
+                  child: RichText(
                     text: TextSpan(
-                      style: TextStyle(color: Colors.black, fontSize: 14),
+                      style: const TextStyle(color: Colors.black, fontSize: 14),
                       children: <TextSpan>[
                         TextSpan(
                             text: translate(item.keys.toList().first),
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(text: ' : '),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                        const TextSpan(text: ' : '),
                         TextSpan(
-                          text: item.values.toList().first,
+                          text: item.values.toList().first.toString(),
                         )
                       ],
                     ),
                   ),
-            ))
+                ))
             .toList());
   }
 
@@ -73,12 +73,13 @@ class InformationsCard extends StatelessWidget {
         // ignore: prefer_const_literals_to_create_immutables
         child: Padding(
           padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const Center(
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  'Caractéristique',
+                  'Caractéristiques',
                   style: TextStyle(fontSize: 19),
                 ),
               ),

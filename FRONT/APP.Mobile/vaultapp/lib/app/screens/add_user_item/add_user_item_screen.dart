@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -39,10 +37,9 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
   @override
   void initState() {
     _currentRequest = interceptor.get() + 1;
-    if (widget.isUpdate == false || widget.isUpdate == null) {
+    if (widget.isUpdate == false) {
       _stateController.text = "FactoryNew";
     } else {
-      print(widget.userItem!.state);
       _stateController.text = widget.userItem!.state;
       _collectionController.text = widget.userItem!.collection ?? "";
       _acquisitionDateController.text =
@@ -61,7 +58,8 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
         item: item);
 
     if (widget.isUpdate) {
-      itemBloc.add(UpdateUserItemEvent(userItem, widget.userItem!.id!));
+      userItem.id = widget.userItem!.id!;
+      itemBloc.add(UpdateUserItemEvent(userItem));
     } else {
       itemBloc.add(CreateUserItemEvent(userItem, _currentRequest));
     }
@@ -89,7 +87,6 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
           title: widget.isUpdate
               ? const Text('Modifier un objet de votre collection')
               : const Text("Ajouter un objet à votre collection"),
-          automaticallyImplyLeading: true,
         ),
         body: Padding(
           padding: const EdgeInsets.all(15.0),

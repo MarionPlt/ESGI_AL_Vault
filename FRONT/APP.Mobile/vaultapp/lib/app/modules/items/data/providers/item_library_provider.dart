@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:vaultapp/app/modules/items/data/models/book.dart';
@@ -8,7 +9,7 @@ import 'package:vaultapp/app/modules/items/data/models/user_item.dart';
 import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
 
 class ItemLibraryProvider {
-  final libraryURL = 'https://localhost:7194';
+  final libraryURL = 'https://10.0.2.2:7194';
 
   Future<Item> getItemById(String itemId) async {
     final result = await http.get(Uri.parse("$libraryURL/item/$itemId"));
@@ -84,14 +85,20 @@ class ItemLibraryProvider {
   }
 
   Future<UserItem> getUserItemById(String userItemId) async {
-    final result =
-        await http.get(Uri.parse("$libraryURL/useritem/$userItemId"));
+    final result = await http
+        .get(Uri.parse("$libraryURL/useritem/$userItemId"))
+        .timeout(const Duration(seconds: 8), onTimeout: () {
+      throw const SocketException("Erreur lors de la connexion à l'API");
+    });
     return UserItem.fromJson(jsonDecode(result.body));
   }
 
   Future<List<UserItem>> getAllUserItemsByUserId(String userId) async {
-    final result =
-        await http.get(Uri.parse("$libraryURL/useritem/user/$userId"));
+    final result = await http
+        .get(Uri.parse("$libraryURL/useritem/user/$userId"))
+        .timeout(const Duration(seconds: 8), onTimeout: () {
+      throw const SocketException("Erreur lors de la connexion à l'API");
+    });
 
     final Iterable userItemsList = jsonDecode(result.body);
 
@@ -115,15 +122,13 @@ class ItemLibraryProvider {
     }
   }
 
-  Future<UserItem> updateUseritem(UserItem userItem, String userItemId) async {
-    print(jsonEncode(userItem.toJson()));
+  Future<UserItem> updateUseritem(UserItem userItem) async {
     final response =
-        await http.put(Uri.parse("$libraryURL/useritem/$userItemId"),
+        await http.put(Uri.parse("$libraryURL/useritem/${userItem.id}"),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },
             body: jsonEncode(userItem.toJson()));
-
     if (response.statusCode == 200) {
       return UserItem.fromJson(jsonDecode(response.body));
     } else {
