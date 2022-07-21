@@ -33,4 +33,15 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: sudo systemctl restart API_Library.service
+          script: sudo systemctl restart API_Identity.service
+      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+      - id: nextversion
+        name: next release version
+        uses: jenkins-x-plugins/jx-release-version@v2.5.2
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.nextversion.outputs.version }}
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          target_commitish: ${{ github.ref }}
