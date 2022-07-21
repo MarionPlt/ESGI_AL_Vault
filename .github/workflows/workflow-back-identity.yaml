@@ -17,8 +17,8 @@ jobs:
         working-directory: ./BACK/API.Identity
       - run : |
           cd ./BACK/API.Identity/bin/Release/net6.0
-          sed "s/DB_USER/${{ secrets.DB_USER }}/g" appsettings.json
-          sed "s/DB_PASSWORD/${{ secrets.DB_PASSWORD }}/g" appsettings.json
+          sed -i "s/DB_USER/${{ secrets.DB_USER }}/g" appsettings.json
+          sed -i "s/DB_PASSWORD/${{ secrets.DB_PASSWORD }}/g" appsettings.json
       - name: copying build files in distant server using SSH connexion
         uses: appleboy/scp-action@master
         with:
