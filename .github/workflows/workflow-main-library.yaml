@@ -1,9 +1,11 @@
 name: build,test and deploy for API_Library
 on:
   push:
+    branches:
+      - main
     paths:
       - 'BACK/**'
-      - '.github/workflows/workflow-back-library.yaml'
+      - '.github/workflows/workflow-main-library.yaml'
 
 defaults:
   run:

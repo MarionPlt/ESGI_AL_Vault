@@ -1,9 +1,11 @@
 name: build,test and deploy for API_Identity
 on:
   push:
+    branches:
+      - main
     paths:
       - 'BACK/**'
-      - '.github/workflows/workflow-back-identity.yaml'
+      - '.github/workflows/workflow-main-identity.yaml'
 
 jobs:
   api-identity:

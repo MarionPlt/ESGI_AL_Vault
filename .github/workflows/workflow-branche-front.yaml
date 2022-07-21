@@ -1,0 +1,27 @@
+name: build,test & release Apk
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - 'FRONT/APP.Mobile/vaultapp/**'
+      - '.github/workflows/workflow-branche-front.yaml'
+
+defaults:
+  run:
+    working-directory: ./FRONT/APP.Mobile/vaultapp
+
+jobs:
+  building_apk:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Flutter action
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.5'
+          cache: true
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build apk

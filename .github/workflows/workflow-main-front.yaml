@@ -1,9 +1,11 @@
-name: build,test & releaseApk
+name: build,test & release Apk
 on:
   push:
+    branches:
+      - main
     paths:
       - 'FRONT/APP.Mobile/vaultapp/**'
-      - '.github/workflows/workflow-front.yaml'
+      - '.github/workflows/workflow-main-front.yaml'
 
 defaults:
   run:

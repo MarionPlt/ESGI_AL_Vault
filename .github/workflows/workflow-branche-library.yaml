@@ -1,0 +1,41 @@
+name: build,test for API_Library
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - 'BACK/**'
+      - '.github/workflows/workflow-branche-library.yaml'
+
+defaults:
+  run:
+    working-directory: ./BACK/API.Library
+
+jobs:
+  api-library:
+    runs-on: ubuntu-latest
+    env:
+      SpecFlowDirectory : Tests/Library.Tests.Specs
+      SpecFlowTestAssemblyPath : bin/Release/net6.0/Library.Tests.Specs.dll
+      SpecFlowTestExecutionPath : bin/Release/net6.0/TestExecution.json
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '6.0.x'
+      - name: Build all projects
+        run: dotnet build -c Release
+        shell: bash
+      - name: Run tests
+        run: dotnet test --no-build -c Release -v minimal
+        shell: bash
+      - name: Generate SpecFlow LivingDoc
+        run: |
+          dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
+          livingdoc test-assembly $SpecFlowDirectory/$SpecFlowTestAssemblyPath -t $SpecFlowDirectory/$SpecFlowTestExecutionPath -o LivingDoc.html
+        shell: bash
+      - uses: actions/upload-artifact@v3
+        if: success() || failure()
+        with:
+          name: SpecflowTestResults
+          path: BACK/API.Library/LivingDoc.html
