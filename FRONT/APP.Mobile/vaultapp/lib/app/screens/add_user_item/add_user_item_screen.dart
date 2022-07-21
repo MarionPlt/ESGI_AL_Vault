@@ -58,6 +58,7 @@ class _AddUserItemScreenState extends State<AddUserItemScreen> {
         item: item);
 
     if (widget.isUpdate) {
+      userItem.id = widget.userItem!.id!;
       itemBloc.add(UpdateUserItemEvent(userItem));
     } else {
       itemBloc.add(CreateUserItemEvent(userItem, _currentRequest));

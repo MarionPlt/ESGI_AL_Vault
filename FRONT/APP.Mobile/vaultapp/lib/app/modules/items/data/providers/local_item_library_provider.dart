@@ -89,6 +89,18 @@ class LocalItemLibraryProvider {
         "INSERT INTO $userItemTable VALUES ('${userItem.id}', '${userItem.item.id}', '${userItem.state}', '${userItem.acquisitionDate}', '${userItem.collection}')");
   }
 
+  Future updateUserItem(UserItem userItem) async {
+    await initialiseDatabase();
+    final result = await db!
+        .query(userItemTable, where: 'id = ?', whereArgs: [userItem.id]);
+    if (result.isNotEmpty) {
+      await db!.update(userItemTable, userItem.toJson(),
+          where: 'id = ?', whereArgs: [userItem.id!]);
+    } else {
+      await insertUserItem(userItem);
+    }
+  }
+
   Future deleteAll() async {
     await initialiseDatabase();
     await db!.delete(userItemTable);

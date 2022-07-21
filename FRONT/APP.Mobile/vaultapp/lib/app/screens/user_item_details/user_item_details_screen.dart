@@ -145,7 +145,7 @@ class UserItemDetailsScren extends StatelessWidget {
           if (!state.isOffline) {
             return FloatingActionButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => AddUserItemScreen(

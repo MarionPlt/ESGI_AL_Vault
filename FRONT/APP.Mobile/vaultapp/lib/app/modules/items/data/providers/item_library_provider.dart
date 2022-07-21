@@ -129,7 +129,6 @@ class ItemLibraryProvider {
               'Content-Type': 'application/json; charset=UTF-8',
             },
             body: jsonEncode(userItem.toJson()));
-
     if (response.statusCode == 200) {
       return UserItem.fromJson(jsonDecode(response.body));
     } else {

@@ -20,6 +20,10 @@ class LocalItemLibraryRepository {
     await _provider.addUserItems(userItems);
   }
 
+  Future updateUserItem(UserItem userItem) async {
+    await _provider.updateUserItem(userItem);
+  }
+
   Future deleteAll() async {
     await _provider.deleteAll();
   }

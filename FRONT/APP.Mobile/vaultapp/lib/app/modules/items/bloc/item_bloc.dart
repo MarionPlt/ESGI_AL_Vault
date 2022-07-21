@@ -139,6 +139,7 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
       try {
         final result =
             await _itemLibraryRepository.updateUserItem(event.userItem);
+        await _localItemLibraryRepository.updateUserItem(event.userItem);
         emit(UserItemUpdatedState(result));
       } catch (e) {
         emit(UserItemUpdateFailedState(e.toString()));
