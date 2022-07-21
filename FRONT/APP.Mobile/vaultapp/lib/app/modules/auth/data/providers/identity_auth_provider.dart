@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class IdentityAuthProvider {
-  final authUrl = 'http://10.0.2.2:5238/auth';
+  final authUrl =
+      'http://ec2-15-237-126-251.eu-west-3.compute.amazonaws.com:5000/auth';
 
   Future<String> login(String username, String password) async {
     final response = await http.post(Uri.parse("$authUrl/login"),

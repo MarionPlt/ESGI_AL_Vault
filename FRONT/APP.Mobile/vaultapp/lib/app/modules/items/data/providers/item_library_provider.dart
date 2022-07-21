@@ -9,7 +9,8 @@ import 'package:vaultapp/app/modules/items/data/models/user_item.dart';
 import 'package:vaultapp/app/modules/items/data/models/video_game.dart';
 
 class ItemLibraryProvider {
-  final libraryURL = 'https://10.0.2.2:7194';
+  final libraryURL =
+      'http://ec2-15-237-126-251.eu-west-3.compute.amazonaws.com:5001';
 
   Future<Item> getItemById(String itemId) async {
     final result = await http.get(Uri.parse("$libraryURL/item/$itemId"));
