@@ -1,4 +1,4 @@
-name: build,test for Backend identity
+name: build,test and deploy for API_Identity
 on:
   push:
     paths:
@@ -17,7 +17,8 @@ jobs:
         working-directory: ./BACK/API.Identity
       - run : |
           cd ./BACK/API.Identity/bin/Release/net6.0
-          echo '${{ secrets.SETTINGS_DATABASE_IDENTITY }}' > appsettings.json
+          sed "s/DB_USER/${{ secrets.DB_USER }}/g" appsettings.json
+          sed "s/DB_PASSWORD/${{ secrets.DB_PASSWORD }}/g" appsettings.json
       - name: copying build files in distant server using SSH connexion
         uses: appleboy/scp-action@master
         with:
@@ -26,3 +27,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ./BACK/API.Identity/bin/Release/net6.0
           target: API_Identity
+      - name: restart API Identity on the server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: sudo systemctl restart API_Library.service
