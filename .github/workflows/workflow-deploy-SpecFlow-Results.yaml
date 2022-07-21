@@ -1,0 +1,17 @@
+name: deploy SpecFlow Tests Documentation
+on:
+  push:
+    paths:
+      - 'BACK/API.Library/LivingDoc.html'
+      - '.github/workflows/workflow-deploy-SpecFlow-Results.yaml'
+
+jobs:
+  deploy-SpecFlow-Doc:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./BACK/API.Library/LivingDoc.html
+          keep_files: true
