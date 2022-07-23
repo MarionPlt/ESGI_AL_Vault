@@ -1,47 +1,54 @@
-﻿using Library.Infrastructure;
-using Library.Infrastructure.Entities.Items;
-using Library.Tests.Specs.Fake;
+﻿using System.Globalization;
+using Library.Application.Context.Items.Books.CreateBook;
 
-namespace Library.Tests.Specs.StepDefinitions;
-
-[Binding]
-public sealed class BookStepDefinitions
+namespace Library.Tests.Specs.StepDefinitions
 {
-    private readonly ScenarioContext _scenarioContext;
-
-    private readonly FakeApplicationDbContext _context;
-
-    public BookStepDefinitions(ScenarioContext scenarioContext, FakeApplicationDbContext context)
+    [Binding]
+    [Scope(Feature = "Book")]
+    public sealed class BookStepDefinitions : ItemStepDefinitions
     {
-        _scenarioContext = scenarioContext;
-        _context = context;
-    }
+        private readonly CreateBookCommandValidator _validator;
 
-    [Given("the books are")]
-    public void GivenTheBooksAre(Table dataTable)
-    {
-        foreach (var row in dataTable.Rows)
+        public BookStepDefinitions(ScenarioContext scenarioContext, CreateBookCommandValidator validator)
+            : base(scenarioContext)
         {
-            _context.Books.Add(new Book(row[0], DateTime.ParseExact(row[1], "dd/MM/yyyy", null), row[2], row[3],
-                row[4], row[5], int.Parse(row[6])));
+            _validator = validator;            
         }
-    }
 
-    [When("add a book")]
-    public void WhenAddBook(Table dataTable)
-    {
-        var book = new Book(dataTable.Rows[0][0], DateTime.ParseExact(dataTable.Rows[0][1], "dd/MM/yyyy", null),
-            dataTable.Rows[0][2], dataTable.Rows[0][3], dataTable.Rows[0][4], dataTable.Rows[0][5],
-            int.Parse(dataTable.Rows[0][6]));
-        _context.Books.Add(book);
-    }
+        [Given(@"the editor ""([^""]*)""")]
+        public void GivenTheEditor(string editor)
+        {
+            _scenarioContext["editor"] = editor;
+        }
 
-    [Then("the books should be")]
-    public void ThenTheResultOfTheBallotShouldBe(Table dataTable)
-    {
-        var booksFromResult = dataTable.Rows.Select(row => new Book(row[0],
-                DateTime.ParseExact(row[1], "dd/MM/yyyy", null), row[2], row[3], row[4], row[5], int.Parse(row[6])))
-            .ToList();
-        _context.Books.Should().BeEquivalentTo(booksFromResult);
+        [Given(@"the author ""([^""]*)""")]
+        public void GivenTheAuthor(string author)
+        {
+            _scenarioContext["author"] = author;
+        }
+
+        [Given(@"the volume (.*)")]
+        public void GivenTheVolume(int volume)
+        {
+            _scenarioContext["volume"] = volume;
+        }
+
+        [When(@"validate CreateBookCommand")]
+        public void WhenValidateCreateBookCommand()
+        {
+            var command = new CreateBookCommand(new()
+            {
+                Label = _scenarioContext["label"].ToString() ?? string.Empty,
+                ReleaseDate = DateTime.ParseExact(_scenarioContext["releaseDate"].ToString(), "d", CultureInfo.CreateSpecificCulture("fr-FR")),
+                Type = "Book",
+                Support = _scenarioContext["support"].ToString(),
+                ImageURL = _scenarioContext["imageURL"].ToString(),
+                Editor = (string)_scenarioContext.GetValueOrDefault("editor") ?? string.Empty,
+                Authors = (string)_scenarioContext.GetValueOrDefault("author") ?? string.Empty,
+                Volume = int.Parse(_scenarioContext["volume"].ToString() ?? "0"),
+            });            
+
+            _scenarioContext["isValid"] = _validator.Validate(command).IsValid;
+        }
     }
 }
