@@ -1,19 +1,35 @@
-﻿@NonParallelizableFeature
-Feature: Movie
+﻿Feature: Movie
 
-Background:
-    Given the movies are
-    | Label  | ReleaseDate | Support  | ImageURL | Director | Editor |
-    | Label1 | 16/10/1999  | support | ImageURL | director | editor |
-    | Label2 | 16/10/2000  | support | ImageURL | director | editor |
+@create-movie-with-valid-data
+Scenario: Create movie with valid data
+    Given the label "Dune"
+    And the release date "06/02/1985"
+    And the support "physical"
+    And the imageUrl "localhost://images/dune"
+    And the director "David Lynch"
+    And the editor "Universal Pictures"
+    When validate CreateMovieCommand
+	Then validation is successful
+	
 
-@add-videogames-to-collection
-Scenario: Create Movie
-	When add a movie
-    | Label  | ReleaseDate | Support  | ImageURL | Director | Editor |
-    | Label3 | 16/10/2001  | support2 | ImageURL | director | editor |
-	Then the movies should be
-    | Label  | ReleaseDate | Support  | ImageURL | Director | Editor |
-    | Label1 | 16/10/1999  | support  | ImageURL | director | editor |
-    | Label2 | 16/10/2000  | support  | ImageURL | director | editor |
-    | Label3 | 16/10/2001  | support2 | ImageURL | director | editor |
+@create-movie-with-empty-editor
+Scenario: Create movie with empty editor
+    Given the label "Dune"
+    And the release date "06/02/1985"
+    And the support "physical"
+    And the imageUrl "localhost://images/dune"
+    And the director "David Lynch"
+    And the editor ""
+    When validate CreateMovieCommand
+    Then validation failed
+
+@create-movie-with-empty-director
+Scenario: Create movie with empty director
+    Given the label "Dune"
+    And the release date "06/02/1985"
+    And the support "physical"
+    And the imageUrl "localhost://images/dune"
+    And the director ""
+    And the editor "Universal Pictures"
+    When validate CreateMovieCommand
+    Then validation failed

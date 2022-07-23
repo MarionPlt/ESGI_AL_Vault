@@ -1,63 +1,54 @@
-﻿using Library.API.Controllers.Items;
-using Library.Infrastructure.Entities.Items;
+﻿using System.Globalization;
+using Library.Application.Context.Items.Books.CreateBook;
 
-namespace Library.Tests.Specs.StepDefinitions;
-
-[Binding]
-public sealed class BookStepDefinitions : BaseStepDefinitions
+namespace Library.Tests.Specs.StepDefinitions
 {
-    [Given(@"the books are")]
-    public void GivenTheBooksAre(Table dataTable)
+    [Binding]
+    [Scope(Feature = "Book")]
+    public sealed class BookStepDefinitions : ItemStepDefinitions
     {
-        foreach (var row in dataTable.Rows)
+        private readonly CreateBookCommandValidator _validator;
+
+        public BookStepDefinitions(ScenarioContext scenarioContext, CreateBookCommandValidator validator)
+            : base(scenarioContext)
         {
-            _context.Books.Add(new Book(row[0], DateTime.ParseExact(row[1], "dd/MM/yyyy", null), row[2], row[3],
-                row[4], row[5], int.Parse(row[6])));
+            _validator = validator;            
         }
 
-        _context.SaveChanges();
-    }
-
-    [When(@"add book")]
-    public async void WhenAddBookAsync(Table dataTable)
-    {
-        foreach (var row in dataTable.Rows)
+        [Given(@"the editor ""([^""]*)""")]
+        public void GivenTheEditor(string editor)
         {
-            var bookController = new BookController(_mediator);
+            _scenarioContext["editor"] = editor;
+        }
 
-            await bookController.CreateBook(new()
+        [Given(@"the author ""([^""]*)""")]
+        public void GivenTheAuthor(string author)
+        {
+            _scenarioContext["author"] = author;
+        }
+
+        [Given(@"the volume (.*)")]
+        public void GivenTheVolume(int volume)
+        {
+            _scenarioContext["volume"] = volume;
+        }
+
+        [When(@"validate CreateBookCommand")]
+        public void WhenValidateCreateBookCommand()
+        {
+            var command = new CreateBookCommand(new()
             {
-                Label = row[0],
+                Label = _scenarioContext["label"].ToString() ?? string.Empty,
+                ReleaseDate = DateTime.ParseExact(_scenarioContext["releaseDate"].ToString(), "d", CultureInfo.CreateSpecificCulture("fr-FR")),
                 Type = "Book",
-                ReleaseDate = DateTime.ParseExact(row[1], "dd/MM/yyyy", null),
-                Support = row[2],
-                ImageURL = row[3],
-                Authors = row[5],
-                Editor = row[4],
-                Volume = int.Parse(row[6])
-            });
-        }        
-    }
+                Support = _scenarioContext["support"].ToString(),
+                ImageURL = _scenarioContext["imageURL"].ToString(),
+                Editor = (string)_scenarioContext.GetValueOrDefault("editor") ?? string.Empty,
+                Authors = (string)_scenarioContext.GetValueOrDefault("author") ?? string.Empty,
+                Volume = int.Parse(_scenarioContext["volume"].ToString() ?? "0"),
+            });            
 
-    [When(@"remove book")]
-    public void WhenRemoveBook(Table dataTable)
-    {
-        foreach (var row in dataTable.Rows)
-        {
-            var book = _context.Books.FirstOrDefault(x => x.Label == row[0]);
-            _context.Books.Remove(book);
-            
+            _scenarioContext["isValid"] = _validator.Validate(command).IsValid;
         }
-        _context.SaveChanges();
-    }
-
-    [Then(@"the books should be")]
-    public void ThenTheResultOfTheBallotShouldBe(Table dataTable)
-    {
-        var booksFromResult = dataTable.Rows.Select(row => new Book(row[0],
-                DateTime.ParseExact(row[1], "dd/MM/yyyy", null), row[2], row[3], row[4], row[5], int.Parse(row[6])))
-            .ToList();
-
-        _context.Books.Should().BeEquivalentTo(booksFromResult, x => x.Excluding(p => p.Id));
     }
 }

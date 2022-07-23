@@ -1,31 +1,51 @@
-﻿@NonParallelizableFeature
-Feature: Book
+﻿Feature: Book
 
-Background: 
-Given the books are
-	| Label  | ReleaseDate | Support | ImageURL | Editor | Authors | Volume |
-	| Label1 | 16/10/1999  | support | ImageURL | editor | author  | 0      |
-	| Label2 | 13/07/1997  | support | ImageURL | editor | author  | 1      |
-	| Label3 | 14/02/1954  | support | ImageURL | editor | author  | 2      |
+@create-book-with-valid-data
+Scenario: Create book with valid data
+    Given the label "Foundation"
+    And the release date "01/01/1957"
+    And the support "physical"
+    And the imageUrl "localhost://images/foundation"
+    And the editor "Gnome Press"
+    And the author "Isaac Asimov"
+    And the volume 1
+    When validate CreateBookCommand
+	Then validation is successful
+	
 
-@add-book-to-collection
-Scenario: Create book
-	When add book
-	| Label  | ReleaseDate | Support | ImageURL | Editor | Authors | Volume |
-	| Label  | 24/02/2002  | support | ImageURL | editor | author  | 3      |
-	Then the books should be
-	| Label  | ReleaseDate | Support | ImageURL | Editor | Authors | Volume |
-	| Label1 | 16/10/1999  | support | ImageURL | editor | author  | 0      |
-	| Label2 | 13/07/1997  | support | ImageURL | editor | author  | 1      |
-	| Label3 | 14/02/1954  | support | ImageURL | editor | author  | 2      |
-	| Label  | 24/02/2002  | support | ImageURL | editor | author  | 3      |
+@create-book-with-empty-author
+Scenario: Create book with empty author
+    Given the label "Foundation"
+    And the release date "01/01/1957"
+    And the support "physical"
+    And the imageUrl "localhost://images/foundation"
+    And the editor "Gnome Press"
+    And the author ""
+    And the volume 1
+    When validate CreateBookCommand
+    Then validation failed
 
-@remove-book-from-collection
-Scenario: Delete book
-    When remove book
-    | Label  |
-    | Label1 |
-    Then the books should be
-    | Label  | ReleaseDate | Support | ImageURL | Editor | Authors | Volume |
-    | Label2 | 13/07/1997  | support | ImageURL | editor | author  | 1      |
-	| Label3 | 14/02/1954  | support | ImageURL | editor | author  | 2      |
+    @create-book-with-empty-editor
+Scenario: Create book with empty editor
+    Given the label "Foundation"
+    And the release date "01/01/1957"
+    And the support "physical"
+    And the imageUrl "localhost://images/foundation"
+    And the editor ""
+    And the author "Isaac Asimov"
+    And the volume 1
+    When validate CreateBookCommand
+    Then validation failed
+
+    @create-book-with-empty-editor
+Scenario: Create book with negative volume
+    Given the label "Foundation"
+    And the release date "01/01/1957"
+    And the support "physical"
+    And the imageUrl "localhost://images/foundation"
+    And the editor "Gnome Press"
+    And the author "Isaac Asimov"
+    And the volume -1
+    When validate CreateBookCommand
+    Then validation failed
+

@@ -1,50 +1,47 @@
-﻿using Library.API.Controllers.Items;
-using Library.Infrastructure.Entities.Items;
+﻿using System.Globalization;
+using Library.Application.Context.Items.Movies.CreateMovie;
 
-namespace Library.Tests.Specs.StepDefinitions;
-
-[Binding]
-public sealed class MovieStepDefinitions : BaseStepDefinitions    
+namespace Library.Tests.Specs.StepDefinitions
 {
-    [Given(@"the movies are")]
-    public void GivenTheMoviesAre(Table dataTable)
+    [Binding]
+    [Scope(Feature = "Movie")]
+    public  class MovieStepDefinitions : ItemStepDefinitions
     {
-        foreach (var row in dataTable.Rows)
+        private readonly CreateMovieCommandValidator _validator;
+
+        public MovieStepDefinitions(ScenarioContext scenarioContext, CreateMovieCommandValidator validator)
+            : base(scenarioContext)
         {
-            _context.Movies.Add(new Movie(row[0], DateTime.ParseExact(row[1], "dd/MM/yyyy", null), row[2], row[3],
-                row[4], row[5]));
+            _validator = validator;
         }
 
-        _context.SaveChanges();
-    }
-
-    [When(@"add a movie")]
-    public async void WhenAddAMovieAsync(Table dataTable)
-    {
-        foreach (var row in dataTable.Rows)
+        [Given(@"the director ""([^""]*)""")]
+        public void GivenTheDirector(string director)
         {
-            var movieController = new MovieController(_mediator);
+            _scenarioContext["director"] = director;
+        }
 
-            await movieController.CreateMovie(new()
+        [Given(@"the editor ""([^""]*)""")]
+        public void GivenTheEditor(string editor)
+        {
+            _scenarioContext["editor"] = editor;
+        }
+
+        [When(@"validate CreateMovieCommand")]
+        public void WhenValidateCreateMovieCommand()
+        {
+            var command = new CreateMovieCommand(new()
             {
-                Label = row[0],
+                Label = _scenarioContext["label"].ToString() ?? string.Empty,
+                ReleaseDate = DateTime.ParseExact(_scenarioContext["releaseDate"].ToString(), "d", CultureInfo.CreateSpecificCulture("fr-FR")),
                 Type = "Book",
-                ReleaseDate = DateTime.ParseExact(row[1], "dd/MM/yyyy", null),
-                Support = row[2],
-                ImageURL = row[3],
-                Director = row[4],
-                Editor = row[5]
+                Support = _scenarioContext["support"].ToString(),
+                ImageURL = _scenarioContext["imageURL"].ToString(),
+                Director = (string)_scenarioContext.GetValueOrDefault("director") ?? string.Empty,
+                Editor = (string)_scenarioContext.GetValueOrDefault("editor") ?? string.Empty,
             });
+
+            _scenarioContext["isValid"] = _validator.Validate(command).IsValid;
         }
-    }
-
-    [Then(@"the movies should be")]
-    public void ThenTheMoviessShouldBe(Table dataTable)
-    {
-        var moviesFromResult = dataTable.Rows.Select(row => new Movie(row[0],
-            DateTime.ParseExact(row[1], "dd/MM/yyyy", null), row[2], row[3], row[4], row[5]))
-        .ToList();
-
-        _context.Movies.Should().BeEquivalentTo(moviesFromResult, x => x.Excluding(p => p.Id));
     }
 }

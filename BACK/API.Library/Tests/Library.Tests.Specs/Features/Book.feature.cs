@@ -19,15 +19,12 @@ namespace Library.Tests.Specs.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [Xunit.CollectionAttribute("SpecFlowNonParallelizableFeatures")]
-    [Xunit.TraitAttribute("Category", "NonParallelizableFeature")]
     public partial class BookFeature : object, Xunit.IClassFixture<BookFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private string[] _featureTags = new string[] {
-                "NonParallelizableFeature"};
+        private string[] _featureTags = ((string[])(null));
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
@@ -40,8 +37,7 @@ namespace Library.Tests.Specs.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Book", null, ProgrammingLanguage.CSharp, new string[] {
-                        "NonParallelizableFeature"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Book", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,58 +72,21 @@ namespace Library.Tests.Specs.Features
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void FeatureBackground()
-        {
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Label",
-                        "ReleaseDate",
-                        "Support",
-                        "ImageURL",
-                        "Editor",
-                        "Authors",
-                        "Volume"});
-            table1.AddRow(new string[] {
-                        "Label1",
-                        "16/10/1999",
-                        "support",
-                        "ImageURL",
-                        "editor",
-                        "author",
-                        "0"});
-            table1.AddRow(new string[] {
-                        "Label2",
-                        "13/07/1997",
-                        "support",
-                        "ImageURL",
-                        "editor",
-                        "author",
-                        "1"});
-            table1.AddRow(new string[] {
-                        "Label3",
-                        "14/02/1954",
-                        "support",
-                        "ImageURL",
-                        "editor",
-                        "author",
-                        "2"});
-            testRunner.Given("the books are", ((string)(null)), table1, "Given ");
-        }
-        
         void System.IDisposable.Dispose()
         {
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Create book")]
+        [Xunit.SkippableFactAttribute(DisplayName="Create book with valid data")]
         [Xunit.TraitAttribute("FeatureTitle", "Book")]
-        [Xunit.TraitAttribute("Description", "Create book")]
-        [Xunit.TraitAttribute("Category", "add-book-to-collection")]
-        public virtual void CreateBook()
+        [Xunit.TraitAttribute("Description", "Create book with valid data")]
+        [Xunit.TraitAttribute("Category", "create-book-with-valid-data")]
+        public virtual void CreateBookWithValidData()
         {
             string[] tagsOfScenario = new string[] {
-                    "add-book-to-collection"};
+                    "create-book-with-valid-data"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create book", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create book with valid data", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
             this.ScenarioInitialize(scenarioInfo);
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -146,79 +105,29 @@ namespace Library.Tests.Specs.Features
             else
             {
                 this.ScenarioStart();
-                this.FeatureBackground();
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Label",
-                            "ReleaseDate",
-                            "Support",
-                            "ImageURL",
-                            "Editor",
-                            "Authors",
-                            "Volume"});
-                table2.AddRow(new string[] {
-                            "Label",
-                            "24/02/2002",
-                            "support",
-                            "ImageURL",
-                            "editor",
-                            "author",
-                            "3"});
-                testRunner.When("add book", ((string)(null)), table2, "When ");
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Label",
-                            "ReleaseDate",
-                            "Support",
-                            "ImageURL",
-                            "Editor",
-                            "Authors",
-                            "Volume"});
-                table3.AddRow(new string[] {
-                            "Label1",
-                            "16/10/1999",
-                            "support",
-                            "ImageURL",
-                            "editor",
-                            "author",
-                            "0"});
-                table3.AddRow(new string[] {
-                            "Label2",
-                            "13/07/1997",
-                            "support",
-                            "ImageURL",
-                            "editor",
-                            "author",
-                            "1"});
-                table3.AddRow(new string[] {
-                            "Label3",
-                            "14/02/1954",
-                            "support",
-                            "ImageURL",
-                            "editor",
-                            "author",
-                            "2"});
-                table3.AddRow(new string[] {
-                            "Label",
-                            "24/02/2002",
-                            "support",
-                            "ImageURL",
-                            "editor",
-                            "author",
-                            "3"});
-                testRunner.Then("the books should be", ((string)(null)), table3, "Then ");
+                testRunner.Given("the label \"Foundation\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+                testRunner.And("the release date \"01/01/1957\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the support \"physical\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the imageUrl \"localhost://images/foundation\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the editor \"Gnome Press\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the author \"Isaac Asimov\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the volume 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.When("validate CreateBookCommand", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                testRunner.Then("validation is successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Delete book")]
+        [Xunit.SkippableFactAttribute(DisplayName="Create book with empty author")]
         [Xunit.TraitAttribute("FeatureTitle", "Book")]
-        [Xunit.TraitAttribute("Description", "Delete book")]
-        [Xunit.TraitAttribute("Category", "remove-book-from-collection")]
-        public virtual void DeleteBook()
+        [Xunit.TraitAttribute("Description", "Create book with empty author")]
+        [Xunit.TraitAttribute("Category", "create-book-with-empty-author")]
+        public virtual void CreateBookWithEmptyAuthor()
         {
             string[] tagsOfScenario = new string[] {
-                    "remove-book-from-collection"};
+                    "create-book-with-empty-author"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete book", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create book with empty author", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
             this.ScenarioInitialize(scenarioInfo);
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -237,37 +146,97 @@ namespace Library.Tests.Specs.Features
             else
             {
                 this.ScenarioStart();
-                this.FeatureBackground();
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Label"});
-                table4.AddRow(new string[] {
-                            "Label1"});
-                testRunner.When("remove book", ((string)(null)), table4, "When ");
-                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Label",
-                            "ReleaseDate",
-                            "Support",
-                            "ImageURL",
-                            "Editor",
-                            "Authors",
-                            "Volume"});
-                table5.AddRow(new string[] {
-                            "Label2",
-                            "13/07/1997",
-                            "support",
-                            "ImageURL",
-                            "editor",
-                            "author",
-                            "1"});
-                table5.AddRow(new string[] {
-                            "Label3",
-                            "14/02/1954",
-                            "support",
-                            "ImageURL",
-                            "editor",
-                            "author",
-                            "2"});
-                testRunner.Then("the books should be", ((string)(null)), table5, "Then ");
+                testRunner.Given("the label \"Foundation\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+                testRunner.And("the release date \"01/01/1957\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the support \"physical\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the imageUrl \"localhost://images/foundation\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the editor \"Gnome Press\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the author \"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the volume 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.When("validate CreateBookCommand", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                testRunner.Then("validation failed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Create book with empty editor")]
+        [Xunit.TraitAttribute("FeatureTitle", "Book")]
+        [Xunit.TraitAttribute("Description", "Create book with empty editor")]
+        [Xunit.TraitAttribute("Category", "create-book-with-empty-editor")]
+        public virtual void CreateBookWithEmptyEditor()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "create-book-with-empty-editor"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create book with empty editor", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            this.ScenarioInitialize(scenarioInfo);
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                testRunner.Given("the label \"Foundation\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+                testRunner.And("the release date \"01/01/1957\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the support \"physical\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the imageUrl \"localhost://images/foundation\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the editor \"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the author \"Isaac Asimov\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the volume 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.When("validate CreateBookCommand", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                testRunner.Then("validation failed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Create book with negative volume")]
+        [Xunit.TraitAttribute("FeatureTitle", "Book")]
+        [Xunit.TraitAttribute("Description", "Create book with negative volume")]
+        [Xunit.TraitAttribute("Category", "create-book-with-empty-editor")]
+        public virtual void CreateBookWithNegativeVolume()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "create-book-with-empty-editor"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create book with negative volume", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            this.ScenarioInitialize(scenarioInfo);
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                testRunner.Given("the label \"Foundation\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+                testRunner.And("the release date \"01/01/1957\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the support \"physical\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the imageUrl \"localhost://images/foundation\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the editor \"Gnome Press\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the author \"Isaac Asimov\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the volume -1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.When("validate CreateBookCommand", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                testRunner.Then("validation failed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
             }
             this.ScenarioCleanup();
         }

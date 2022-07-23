@@ -33,7 +33,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\API\Library.API\Library.API.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Library.Infrastructure\Library.Infrastructure.csproj" />
-    <ProjectReference Include="..\Library.Tests.Common\Library.Tests.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

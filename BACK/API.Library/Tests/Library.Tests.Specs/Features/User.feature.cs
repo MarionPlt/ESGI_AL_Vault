@@ -19,7 +19,7 @@ namespace Library.Tests.Specs.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class VideoGameFeature : object, Xunit.IClassFixture<VideoGameFeature.FixtureData>, System.IDisposable
+    public partial class UserFeature : object, Xunit.IClassFixture<UserFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,7 +28,7 @@ namespace Library.Tests.Specs.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-        public VideoGameFeature(VideoGameFeature.FixtureData fixtureData, Library_Tests_Specs_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public UserFeature(UserFeature.FixtureData fixtureData, Library_Tests_Specs_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -37,7 +37,7 @@ namespace Library.Tests.Specs.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "VideoGame", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "User", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -77,16 +77,16 @@ namespace Library.Tests.Specs.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Create videogame with valid data")]
-        [Xunit.TraitAttribute("FeatureTitle", "VideoGame")]
-        [Xunit.TraitAttribute("Description", "Create videogame with valid data")]
-        [Xunit.TraitAttribute("Category", "create-videogame-with-valid-data")]
-        public virtual void CreateVideogameWithValidData()
+        [Xunit.SkippableFactAttribute(DisplayName="Create User with valid data")]
+        [Xunit.TraitAttribute("FeatureTitle", "User")]
+        [Xunit.TraitAttribute("Description", "Create User with valid data")]
+        [Xunit.TraitAttribute("Category", "create-user-with-valid-data")]
+        public virtual void CreateUserWithValidData()
         {
             string[] tagsOfScenario = new string[] {
-                    "create-videogame-with-valid-data"};
+                    "create-user-with-valid-data"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create videogame with valid data", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create User with valid data", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
             this.ScenarioInitialize(scenarioInfo);
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -105,27 +105,23 @@ namespace Library.Tests.Specs.Features
             else
             {
                 this.ScenarioStart();
-                testRunner.Given("the label \"E.T.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-                testRunner.And("the release date \"01/12/1982\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-                testRunner.And("the support \"physical\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-                testRunner.And("the imageUrl \"localhost://images/E.T.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-                testRunner.And("the platform \"Atari\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-                testRunner.When("validate CreateVideoGameCommand", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                testRunner.Given("the userName \"Jean\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+                testRunner.When("validate CreateUserCommand", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
                 testRunner.Then("validation is successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Create videogame with empty platform")]
-        [Xunit.TraitAttribute("FeatureTitle", "VideoGame")]
-        [Xunit.TraitAttribute("Description", "Create videogame with empty platform")]
-        [Xunit.TraitAttribute("Category", "create-videogame-with-empty-platform")]
-        public virtual void CreateVideogameWithEmptyPlatform()
+        [Xunit.SkippableFactAttribute(DisplayName="Create User with empty userName")]
+        [Xunit.TraitAttribute("FeatureTitle", "User")]
+        [Xunit.TraitAttribute("Description", "Create User with empty userName")]
+        [Xunit.TraitAttribute("Category", "create-user-with-empty-userName")]
+        public virtual void CreateUserWithEmptyUserName()
         {
             string[] tagsOfScenario = new string[] {
-                    "create-videogame-with-empty-platform"};
+                    "create-user-with-empty-userName"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create videogame with empty platform", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create User with empty userName", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
             this.ScenarioInitialize(scenarioInfo);
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -144,12 +140,8 @@ namespace Library.Tests.Specs.Features
             else
             {
                 this.ScenarioStart();
-                testRunner.Given("the label \"E.T.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-                testRunner.And("the release date \"01/12/1982\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-                testRunner.And("the support \"physical\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-                testRunner.And("the imageUrl \"localhost://images/E.T.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-                testRunner.And("the platform \"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-                testRunner.When("validate CreateVideoGameCommand", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                testRunner.Given("the userName \"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+                testRunner.When("validate CreateUserCommand", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
                 testRunner.Then("validation failed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
             }
             this.ScenarioCleanup();
@@ -162,12 +154,12 @@ namespace Library.Tests.Specs.Features
             
             public FixtureData()
             {
-                VideoGameFeature.FeatureSetup();
+                UserFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                VideoGameFeature.FeatureTearDown();
+                UserFeature.FeatureTearDown();
             }
         }
     }

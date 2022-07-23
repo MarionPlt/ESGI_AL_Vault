@@ -1,48 +1,40 @@
-﻿using Library.API.Controllers.Items;
-using Library.Infrastructure.Entities.Items;
+﻿using System.Globalization;
+using Library.Application.Context.Items.VideoGames.CreateVideoGame;
 
-namespace Library.Tests.Specs.StepDefinitions;
-
-[Binding]
-public sealed class VideoGameStepDefinitions : BaseStepDefinitions
+namespace Library.Tests.Specs.StepDefinitions
 {
-    [Given(@"the videogames are")]
-    public void GivenTheVideogamesAre(Table dataTable)
+    [Binding]
+    [Scope(Feature = "VideoGame")]
+    public class VideoGameStepDefinitions : ItemStepDefinitions
     {
-        foreach (var row in dataTable.Rows)
+        private readonly CreateVideoGameCommandValidator _validator;
+
+        public VideoGameStepDefinitions(ScenarioContext scenarioContext, CreateVideoGameCommandValidator validator)
+            : base(scenarioContext)
         {
-            _context.VideoGames.Add(new VideoGame(row[0], DateTime.ParseExact(row[1], "dd/MM/yyyy", null), row[2], row[3], row[4]));
+            _validator = validator;    
         }
 
-        _context.SaveChanges();
-    }
-
-    [When(@"add a videogames")]
-    public async void WhenAddAVideogamesAsync(Table dataTable)
-    {
-        foreach (var row in dataTable.Rows)
+        [Given(@"the platform ""([^""]*)""")]
+        public void GivenThePlatform(string platform)
         {
-            var videogameController = new VideoGameController(_mediator);
+            _scenarioContext["platform"] = platform;
+        }
 
-            await videogameController.CreateVideoGame(new()
+        [When(@"validate CreateVideoGameCommand")]
+        public void WhenValidateCreateVideoGameCommand()
+        {
+            var command = new CreateVideoGameCommand(new()
             {
-                Label = row[0],
+                Label = _scenarioContext["label"].ToString() ?? string.Empty,
+                ReleaseDate = DateTime.ParseExact(_scenarioContext["releaseDate"].ToString(), "d", CultureInfo.CreateSpecificCulture("fr-FR")),
                 Type = "Book",
-                ReleaseDate = DateTime.ParseExact(row[1], "dd/MM/yyyy", null),
-                Support = row[2],
-                ImageURL = row[3],
-                Platform = row[4]
+                Support = _scenarioContext["support"].ToString(),
+                ImageURL = _scenarioContext["imageURL"].ToString(),
+                Platform = (string)_scenarioContext.GetValueOrDefault("platform") ?? string.Empty,
             });
+
+            _scenarioContext["isValid"] = _validator.Validate(command).IsValid;
         }
-    }
-
-    [Then(@"the videogames should be")]
-    public void ThenTheVideogamesShouldBe(Table dataTable)
-    {
-        var videogamesFromResult = dataTable.Rows.Select(row => new VideoGame(row[0],
-        DateTime.ParseExact(row[1], "dd/MM/yyyy", null), row[2], row[3], row[4]))
-            .ToList();
-
-        _context.VideoGames.Should().BeEquivalentTo(videogamesFromResult, x => x.Excluding(p => p.Id));
     }
 }

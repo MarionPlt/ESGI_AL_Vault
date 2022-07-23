@@ -19,15 +19,12 @@ namespace Library.Tests.Specs.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [Xunit.CollectionAttribute("SpecFlowNonParallelizableFeatures")]
-    [Xunit.TraitAttribute("Category", "NonParallelizableFeature")]
     public partial class MovieFeature : object, Xunit.IClassFixture<MovieFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-        private string[] _featureTags = new string[] {
-                "NonParallelizableFeature"};
+        private string[] _featureTags = ((string[])(null));
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
@@ -40,8 +37,7 @@ namespace Library.Tests.Specs.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Movie", null, ProgrammingLanguage.CSharp, new string[] {
-                        "NonParallelizableFeature"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Movie", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,47 +72,21 @@ namespace Library.Tests.Specs.Features
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void FeatureBackground()
-        {
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Label",
-                        "ReleaseDate",
-                        "Support",
-                        "ImageURL",
-                        "Director",
-                        "Editor"});
-            table6.AddRow(new string[] {
-                        "Label1",
-                        "16/10/1999",
-                        "support",
-                        "ImageURL",
-                        "director",
-                        "editor"});
-            table6.AddRow(new string[] {
-                        "Label2",
-                        "16/10/2000",
-                        "support",
-                        "ImageURL",
-                        "director",
-                        "editor"});
-            testRunner.Given("the movies are", ((string)(null)), table6, "Given ");
-        }
-        
         void System.IDisposable.Dispose()
         {
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Create Movie")]
+        [Xunit.SkippableFactAttribute(DisplayName="Create movie with valid data")]
         [Xunit.TraitAttribute("FeatureTitle", "Movie")]
-        [Xunit.TraitAttribute("Description", "Create Movie")]
-        [Xunit.TraitAttribute("Category", "add-videogames-to-collection")]
-        public virtual void CreateMovie()
+        [Xunit.TraitAttribute("Description", "Create movie with valid data")]
+        [Xunit.TraitAttribute("Category", "create-movie-with-valid-data")]
+        public virtual void CreateMovieWithValidData()
         {
             string[] tagsOfScenario = new string[] {
-                    "add-videogames-to-collection"};
+                    "create-movie-with-valid-data"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create Movie", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create movie with valid data", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
             this.ScenarioInitialize(scenarioInfo);
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -135,51 +105,94 @@ namespace Library.Tests.Specs.Features
             else
             {
                 this.ScenarioStart();
-                this.FeatureBackground();
-                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Label",
-                            "ReleaseDate",
-                            "Support",
-                            "ImageURL",
-                            "Director",
-                            "Editor"});
-                table7.AddRow(new string[] {
-                            "Label3",
-                            "16/10/2001",
-                            "support2",
-                            "ImageURL",
-                            "director",
-                            "editor"});
-                testRunner.When("add a movie", ((string)(null)), table7, "When ");
-                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Label",
-                            "ReleaseDate",
-                            "Support",
-                            "ImageURL",
-                            "Director",
-                            "Editor"});
-                table8.AddRow(new string[] {
-                            "Label1",
-                            "16/10/1999",
-                            "support",
-                            "ImageURL",
-                            "director",
-                            "editor"});
-                table8.AddRow(new string[] {
-                            "Label2",
-                            "16/10/2000",
-                            "support",
-                            "ImageURL",
-                            "director",
-                            "editor"});
-                table8.AddRow(new string[] {
-                            "Label3",
-                            "16/10/2001",
-                            "support2",
-                            "ImageURL",
-                            "director",
-                            "editor"});
-                testRunner.Then("the movies should be", ((string)(null)), table8, "Then ");
+                testRunner.Given("the label \"Dune\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+                testRunner.And("the release date \"06/02/1985\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the support \"physical\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the imageUrl \"localhost://images/dune\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the director \"David Lynch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the editor \"Universal Pictures\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.When("validate CreateMovieCommand", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                testRunner.Then("validation is successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Create movie with empty editor")]
+        [Xunit.TraitAttribute("FeatureTitle", "Movie")]
+        [Xunit.TraitAttribute("Description", "Create movie with empty editor")]
+        [Xunit.TraitAttribute("Category", "create-movie-with-empty-editor")]
+        public virtual void CreateMovieWithEmptyEditor()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "create-movie-with-empty-editor"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create movie with empty editor", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            this.ScenarioInitialize(scenarioInfo);
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                testRunner.Given("the label \"Dune\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+                testRunner.And("the release date \"06/02/1985\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the support \"physical\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the imageUrl \"localhost://images/dune\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the director \"David Lynch\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the editor \"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.When("validate CreateMovieCommand", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                testRunner.Then("validation failed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Create movie with empty director")]
+        [Xunit.TraitAttribute("FeatureTitle", "Movie")]
+        [Xunit.TraitAttribute("Description", "Create movie with empty director")]
+        [Xunit.TraitAttribute("Category", "create-movie-with-empty-director")]
+        public virtual void CreateMovieWithEmptyDirector()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "create-movie-with-empty-director"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create movie with empty director", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            this.ScenarioInitialize(scenarioInfo);
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                testRunner.Given("the label \"Dune\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+                testRunner.And("the release date \"06/02/1985\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the support \"physical\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the imageUrl \"localhost://images/dune\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the director \"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.And("the editor \"Universal Pictures\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                testRunner.When("validate CreateMovieCommand", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                testRunner.Then("validation failed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
             }
             this.ScenarioCleanup();
         }
