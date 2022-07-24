@@ -11,7 +11,6 @@ namespace Library.Application.Context.Items.GetAllItems
 
         public int PageIndex;
         public int PageSize;
-        public DateTime? ReleaseDate;
         public ItemType? Type;
 
         public GetAllItemsQuery(PagingParameters? pagingParameters, ItemFiltersDTO? filters)
@@ -31,8 +30,7 @@ namespace Library.Application.Context.Items.GetAllItems
                         Type = parsedType;
                     }
                 }
-
-                ReleaseDate = filters.ReleaseDate;
+                
                 Label = filters.Label;
             }
         }

@@ -25,10 +25,6 @@ namespace Library.Application.Context.Items.GetAllItems
                 filterDecorator = new ItemTypeFilterDecorator(filterDecorator, request.Type.Value);
             }
 
-            if (request.ReleaseDate.HasValue)
-            {
-            }
-
             if (!string.IsNullOrWhiteSpace(request.Label))
             {
                 filterDecorator = new ItemLabelFilterDecorator(filterDecorator, request.Label);
