@@ -14,6 +14,6 @@ Attention, le téléphone doit être en mode développeur pour pouvoir lancer l'
 
 ## Méthode 2
 
--Téléchargez le fichier APK de la release sur votre ordinateur
--Branchez votre téléphone via USB
--Dans le dossier contenant le .apk, lancer la commande ``flutter install``
+- Téléchargez le fichier APK de la release sur votre ordinateur
+- Branchez votre téléphone via USB
+- Dans le dossier contenant le .apk, lancer la commande ``flutter install``
