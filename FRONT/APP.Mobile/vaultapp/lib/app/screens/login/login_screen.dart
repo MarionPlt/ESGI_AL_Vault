@@ -61,7 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text("Bonjour"),
+                const Text("Bonjour", style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),),
                 SizedBox(height: 20.h),
                 TextFormField(
                   decoration: const InputDecoration(
