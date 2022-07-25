@@ -7,7 +7,7 @@ class SplashTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      "Vault",
+      "Vault Demo",
       style: TextStyle(fontSize: 5.h),
     );
   }
