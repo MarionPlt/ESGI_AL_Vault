@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { 
+    height: 100%;
+    padding: 0;
+    margin: 0; 
+}
+body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.page-content {
+    margin: 5vh 15vw 0 15vw;
+}
+
+.main-title {
+    font-size: x-large;
+}

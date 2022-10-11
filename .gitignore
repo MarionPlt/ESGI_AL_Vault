@@ -397,3 +397,6 @@ doc/api/
 !*.xml
 
 appsettings.Local.json
+
+# Dotnet publish directory
+**/out/
