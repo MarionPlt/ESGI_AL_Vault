@@ -1,13 +1,7 @@
 USE [master]
 GO
 
-/****** Object:  Database [vault_library]    Script Date: 14/07/2022 21:06:12 ******/
 CREATE DATABASE [vault_library]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'vault_library', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\vault_library.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'vault_library_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\vault_library_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
 GO
 
 IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
