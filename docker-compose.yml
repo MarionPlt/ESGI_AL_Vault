@@ -1,12 +1,14 @@
 services:
   angular-app:
+    image: esgi.angular-app
     container_name: angular-app
     build: ./FRONT/APP.Web/vaultapp
     ports:
       - '8080:80'
     depends_on:
-      - dotnet-app
-  dotnet-app:
+      - dotnet-api
+  dotnet-api:
+    image: esgi.dotnet-api 
     container_name: dotnet-api
     build: ./BACK/API.Library
     ports:
@@ -14,6 +16,7 @@ services:
     depends_on:
       - sql-server
   sql-server:
+    image: esgi.sql-server
     container_name: sql-server
     build: 
       context: ./BACK/SQL.Scripts
